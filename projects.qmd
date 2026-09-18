@@ -4,10 +4,10 @@ output-dir: docs
 ---
 
 # INSPIRE:
+
 ## A Network-Based Method for Quantifying Functional Convergence in Cancer Driver Genes
 
-
-Cancer driver genes (CAN-genes) often occur at low frequencies across patient populations, yet distinct genetic alterations may converge on shared functional pathways. To investigate these relationships, we developed INSPIRE (Integrative Network Similarity PIpEline), a framework for quantifying similarity among within-species biological networks, and applied it to signaling subnetworks associated with 28 colorectal cancer driver genes. 
+Cancer driver genes (CAN-genes) often occur at low frequencies across patient populations, yet distinct genetic alterations may converge on shared functional pathways. To investigate these relationships, we developed INSPIRE (Integrative Network Similarity PIpEline), a framework for quantifying similarity among within-species biological networks, and applied it to signaling subnetworks associated with 28 colorectal cancer driver genes.
 
 INSPIRE identified functionally coherent driver groups based on network topology, revealing stronger co-essentiality and significant network-level mutual exclusivity within functional modules, highlighting how signaling-network architecture can uncover functional convergence among genetically heterogeneous CAN-gene networks.
 
@@ -16,8 +16,9 @@ My role in this project was developing and integrating the network formulation p
 The paper was accepted for poster presentation and publication at the Pacific Symposium on Biocomputing (PSB) 2027 and is in the process of being revised.
 
 # LevelUp
+
 ## Quantifying Semantic Similarity of Reactome Terms
 
 Biological pathways often share related functions despite differing in their specific components, making it challenging to quantify functional relationships using individual pathway annotations alone. LevelUp is an R package that calculates semantic similarity of Reactome pathway terms, leveraging the hierarchical structure of pathway annotations to quantify functional relationships between biological processes. The resulting framework is intended to support functional pathway analysis by providing a systematic approach for identifying and characterizing relationships among related biological pathways.
 
-While the project is still in an early stage, I plan on comparing information-content based equations, graph-based equations, and a combined clustering approach with LLM-generated to see which approach yields the most biologically coherent scoring. 
+While the project is still in an early stage, I plan on comparing information-content based equations, graph-based equations, and a combined clustering approach with LLM-generated scoring to see which approach yields the most biologically coherent scoring.
