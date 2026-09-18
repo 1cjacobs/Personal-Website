@@ -1,0 +1,24 @@
+project:
+  type: website
+  output-dir: docs
+  
+website:
+  title: "Charlie Jacobs"
+  navbar:
+    left:
+      - href: index.qmd
+        text: About me
+      - href: about.qmd
+        text: Resume & Contact Info
+      - href: projects.qmd
+        text: Projects
+
+format:
+  html:
+    theme:
+      lumen
+    css: styles.css
+    toc: true
+
+editor: visual
+

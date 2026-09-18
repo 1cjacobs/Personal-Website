@@ -1,0 +1,17 @@
+---
+title: ""
+output-dir: docs
+---
+:::{.text-center}
+# About Me
+
+
+![](IMG_6760.jpg){width=300px}
+
+My name is Charlie Jacobs and I am a junior at Case Western Reserve University pursuing a B.S. in Biochemistry with a concentration in Computational Health Sciences,
+interested in both computational and wet-lab roles in pharmaceutical research and development. I am currently completing
+graduate-level coursework in preparation for applying to the Combined Master’s in Biotechnology program with a concentration
+in Pharmacology, with an interest in interdisciplinary translational research spanning computational biology, molecular biology, and drug
+development.
+
+:::

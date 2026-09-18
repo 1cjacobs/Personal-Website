@@ -1,0 +1,22 @@
+---
+title: "Resume & Contact Info"
+output-dir: docs
+---
+
+```{=html}
+<iframe src="./resume.pdf" style="border: 0.5px;width: 100%;height: 100%;">
+</iframe>
+```
+
+# Contact Information
+
+::: text-center
+Email: charlesjjacobs1205\@gmail.com
+
+```{=html}
+<a href="https://www.linkedin.com/in/charlie-jacobs-552125365/">LinkedIn</a>
+<br>
+<br>
+<br>
+```
+:::

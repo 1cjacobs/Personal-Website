@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "About Me",
+    "section": "",
+    "text": "About Me\n\nMy name is Charlie Jacobs and I am a junior at Case Western Reserve University pursuing a B.S. in Biochemistry with a concentration in Computational Health Sciences, interested in both computational and wet-lab roles in pharmaceutical research and development. I am currently completing graduate-level coursework in preparation for applying to the Combined Master’s in Biotechnology program with a concentration in Pharmacology, with an interest in interdisciplinary translational research spanning computational biology, molecular biology, and drug development."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Resume & Contact Info",
+    "section": "",
+    "text": "Contact Information\n\nEmail: charlesjjacobs1205@gmail.com\nLinkedIn"
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "Cancer driver genes (CAN-genes) often occur at low frequencies across patient populations, yet distinct genetic alterations may converge on shared functional pathways. To investigate these relationships, we developed INSPIRE (Integrative Network Similarity PIpEline), a framework for quantifying similarity among within-species biological networks, and applied it to signaling subnetworks associated with 28 colorectal cancer driver genes.\nINSPIRE identified functionally coherent driver groups based on network topology, revealing stronger co-essentiality and significant network-level mutual exclusivity within functional modules, highlighting how signaling-network architecture can uncover functional convergence among genetically heterogeneous CAN-gene networks.\nMy role in this project was developing and integrating the network formulation pipeline to create biologically relevant signaling pathways for the alignment algorithm. To do this, I combined interactions from both STRINGdb and IntAct and filtered them based on both coexpression data from CRC tumors and association rule mining of Gene Ontology terms.\nThe paper was accepted for poster presentation and publication at the Pacific Symposium on Biocomputing (PSB) 2027 and is in the process of being revised."
+  },
+  {
+    "objectID": "projects.html#a-network-based-method-for-quantifying-functional-convergence-in-cancer-driver-genes",
+    "href": "projects.html#a-network-based-method-for-quantifying-functional-convergence-in-cancer-driver-genes",
+    "title": "Projects",
+    "section": "",
+    "text": "Cancer driver genes (CAN-genes) often occur at low frequencies across patient populations, yet distinct genetic alterations may converge on shared functional pathways. To investigate these relationships, we developed INSPIRE (Integrative Network Similarity PIpEline), a framework for quantifying similarity among within-species biological networks, and applied it to signaling subnetworks associated with 28 colorectal cancer driver genes.\nINSPIRE identified functionally coherent driver groups based on network topology, revealing stronger co-essentiality and significant network-level mutual exclusivity within functional modules, highlighting how signaling-network architecture can uncover functional convergence among genetically heterogeneous CAN-gene networks.\nMy role in this project was developing and integrating the network formulation pipeline to create biologically relevant signaling pathways for the alignment algorithm. To do this, I combined interactions from both STRINGdb and IntAct and filtered them based on both coexpression data from CRC tumors and association rule mining of Gene Ontology terms.\nThe paper was accepted for poster presentation and publication at the Pacific Symposium on Biocomputing (PSB) 2027 and is in the process of being revised."
+  },
+  {
+    "objectID": "projects.html#quantifying-semantic-similarity-of-reactome-terms",
+    "href": "projects.html#quantifying-semantic-similarity-of-reactome-terms",
+    "title": "Projects",
+    "section": "Quantifying Semantic Similarity of Reactome Terms",
+    "text": "Quantifying Semantic Similarity of Reactome Terms\nBiological pathways often share related functions despite differing in their specific components, making it challenging to quantify functional relationships using individual pathway annotations alone. LevelUp is an R package that calculates semantic similarity of Reactome pathway terms, leveraging the hierarchical structure of pathway annotations to quantify functional relationships between biological processes. The resulting framework is intended to support functional pathway analysis by providing a systematic approach for identifying and characterizing relationships among related biological pathways.\nWhile the project is still in an early stage, I plan on comparing information-content based equations, graph-based equations, and a combined clustering approach with LLM-generated to see which approach yields the most biologically coherent scoring."
+  }
+]
