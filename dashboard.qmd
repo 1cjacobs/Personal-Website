@@ -1,0 +1,301 @@
+---
+title: "Dashboard Creation"
+author: Charles Jacobs
+date: last-modified
+number-sections: true
+---
+
+This dashboard was created by modifying the labor delivery template and data and figures created during the analysis. Some of the graphs were modified slightly when they were copied from the analysis into the dashboard to ensure that all the information fit on the page properly. The following sections follow the format outlined in the Study 1 requirements and examine the relationships between general health, BMI, and ethnicity in a sample American adults ages 21 to 79 from NHANES data.
+
+# Data Import
+```{r 1-Packages-and-Data-Import}
+
+knitr::opts_chunk$set(comment = NA)
+library(Hmisc)
+library(gtsummary)
+library(nhanesA)
+# import datasets
+
+# hospital_raw <- nhanes('P_HUQ') |> tibble()
+# body_raw <- nhanes('P_BMX') |> tibble()
+# demo_raw <- nhanes('P_DEMO') |> tibble()
+
+# save datasets 
+
+# saveRDS(body_raw, "data/P_BMX.rds")
+# saveRDS(hospital_raw, "data/P_HUQ.Rds")
+# saveRDS(demo_raw, "data/P_DEMO.rds")
+
+# load saved datasets
+
+hospital_raw <- readRDS("data/P_HUQ.rds")
+body_raw <- readRDS("data/P_BMX.rds")
+demo_raw <- readRDS("data/P_DEMO.rds")
+library(tidyverse)
+```
+# Data Cleaning
+```{r 2-Cleaning-Datasets}
+
+body_cleaned <- body_raw %>%
+  select(SEQN, BMXBMI)
+
+demo_cleaned <- demo_raw %>%
+  select(SEQN, RIDAGEYR, RIAGENDR, RIDRETH3, DMDEDUC2, INDFMPIR, RIDSTATR)
+
+hospital_cleaned <- hospital_raw %>%
+  select(SEQN, HUQ010, HUQ090, HUQ071, HUQ030)
+
+# merged all imported data sets
+# filtered ages to only include 21-79 to ensure count was below 7k maximum
+# filtered for complete cases, removed Don't know and refused for 3 variables
+# reassinged more than one to yes for one variable
+
+merged_data <- demo_cleaned %>%
+  left_join(body_cleaned, by = "SEQN") %>%
+  left_join(hospital_cleaned, by = "SEQN") %>%
+  filter(RIDSTATR == "Both interviewed and MEC examined") %>%
+  filter(between(RIDAGEYR, 21, 79)) %>%
+  filter(complete.cases(.)) %>%
+  filter(HUQ071 != "Don't know") %>%
+  filter(!HUQ010 %in% c("Don't know", "Refused")) %>%
+  filter(!HUQ030 %in% c("Don't know", "Refused")) %>%
+  mutate(HUQ030 = fct_recode(HUQ030, "Yes" = "There is more than one place")) %>%
+  droplevels()
+
+
+
+```
+
+# Codebook & Data Description
+
+6665 adults ages 21 to 79 participating in NHANES 2017 to March 2020 pre-pandemic with complete data on the variables listed below.
+
+## Codebook
+
+| Variable Name | Type   | Description                                       |
+|---------------|--------|---------------------------------------------------|
+| SEQN          | ID     | Study respondent identifier                       |
+| BMXBMI        | Quant  | Body-mass index (kg/m\^2)                         |
+| HUQ071        | Binary | Overnight hospital stay in last year?             |
+| RIDRETH3      | 6-Cat  | Ethnicity of respondents                          |
+| HUQ090        | Binary | Seen a mental health professional in last year?   |
+| HUQ010        | 5-Cat  | How is your health overall?                       |
+| HUQ030        | 3-Cat  | Do you have a routine place to go for healthcare? |
+
+## Analytic Tibble
+
+```{r 3.2-Analytic-Tibble}
+merged_data |> 
+  select(SEQN, BMXBMI, HUQ010, HUQ090, HUQ071, HUQ030, RIDRETH3)
+```
+
+## Data Summary
+
+```{r 3.3-Data-Summary}
+merged_data |>
+  select(BMXBMI, HUQ010, HUQ090, HUQ071, HUQ030, RIDRETH3) |>
+  tbl_summary()
+```
+
+
+# Analysis B
+## Do adults with an overnight hospital stay in the last year have a different mean BMI than those without one?
+
+I expect that adults with an overnight hospital stay in the last year will have a different BMI than those who did not because body-mass index is a reliable indicator for general health, and less healthier people seek medical treatment more often. 
+
+## Variables Examined
+BMXBMI is the variable used to observe BMI. Body-mass index is a simple calculation done to see if people are  healthy based on their height and weight. This is the quantitative outcome in this analysis. HUQ071 is the variable used to determine if a survey participant has had an overnight hospital stay in the last year. This is a binary variable with categories Yes and No.
+
+
+## Analysis
+For this analysis there are two independent groups, those who have had an overnight hospital stay in the past year and those who have not. The quantitative outcome is BMI, and the two groups are independent because each participant has only one BMI and belongs to one binary hospitalization group. Because there were several hundred responses in the Yes category and several thousand in the No, a Welch two-sample t test was used to estimate the differences in mean BMI between the two groups. The violin plot was slightly skewed right, but that should not affect the t test given that both groups were sufficiently large and the mean and median of the groups are relatively close (30.7 median Yes; 28.8 median No; 31.7 mean Yes; 30.1 mean No). The t test with a 90% confidence interval was 1.06 to 2.17 (Yes-No) and the p value was far below 0.05, meaning there is evidence that adults who have had an overnight hospital stay in the past year have a higher BMI on average than adults who have not had an overnight hospital stay
+
+```{r 4.3-main-analysis}
+# violin plot of overnight hospital stay and bmi
+merged_data %>%
+  ggplot(aes(x = HUQ071, y = BMXBMI, fill = HUQ071)) +
+  geom_violin(alpha = 0.5, trim = FALSE) +
+  geom_boxplot(width = 0.15, alpha = 0.8) +
+  scale_fill_manual(values = c("No" = "orangered", "Yes" = "royalblue")) +
+  labs(title = "Distribution of BMI by Overnight Hospital Stay Status", x = "Overnight hospital stay in past year", y = "Body Mass Index (kg/m^2)") +
+  theme_minimal() +
+  theme(legend.position = "none") 
+  
+# summary stats on bmi grouped by overnight hospital stay
+merged_data %>%
+  group_by(HUQ071) %>%
+  summarise(
+    n = n(), Mean = mean(BMXBMI), SD = sd(BMXBMI), Median = median(BMXBMI), IQR = IQR(BMXBMI), Minimum = min(BMXBMI), Maximum = max(BMXBMI)) 
+
+# 2 sample t test to determine difference in population means
+t.test(BMXBMI ~ HUQ071, data = merged_data, conf.level = 0.90)
+
+```
+
+## Conclusions
+Adults who reported an overnight hospital stay in the last year had a higher average BMI than adults who did not. The estimated mean difference in BMI was 1.61 kg/m^2, with a 90% confidence interval from 1.06 to 2.17 kg/m^2. Since this interval excludes 0, the results provide evidence of a difference in population mean BMI between the two groups, which is consistent with my hypothesis. 
+
+
+# Analysis C
+
+## Does mean BMI differ across ethnic groups?
+
+I expect that there will be a significant difference between the average BMI of each ethnic group because of the physiological differences associated with each group. 
+
+## Variables Examined
+
+Once again, BMXBMI is the quantitative variable used to observe body-mass index measured in kg/m^2. RIDRETH3 is the categorical variable for ethnicity that has six possible values: Non-Hispanic Asian, Non-Hispanic White, Non-Hispanic Black, Mexican American, Hispanic, and Other Race - Including Multi-Racial. The quantitative outcome is BMI and each of the ethnicities are the independent categories. 
+
+## Analysis
+
+For this analysis there are six independent groups, one for each racial category. Because there are several different categories, ANOVA is required to determine if there is a difference in at least one of the population means and Tukey HSD is used afterwards to determine which groups differ and to what degree. Based on the very small P value of the ANOVA, there is a difference in at least one of the population means, so the Tukey HSD is required. At a 90% confidence interval, Asians had a lower average BMI than all other ethnic categories and Black participants had a higher average BMI than both Hispanic and White participants. 
+
+Compared to Mexican American adults, Asians had an estimated mean BMI that was 5.19 kg/m^2 (-6.16 to -4.22 on a 90% CI), and compared to Black adults, Asians had an estimated mean BMI 5.91 kg/m^2 lower (-6.72 to -5.10 on a 90% CI). Black adults had an estimated mean BMI 1.60 kg/m^2 higher than Hispanic adults (0.72 to 2.48 on a 90% CI), and 1.40 kg/m^2 higher than White adults (0.79 to 2.01 on a 90% CI). 
+
+```{r 5.3-main-analysis}
+merged_data %>%
+  group_by(RIDRETH3) %>%
+  summarise(n = n(), Mean = mean(BMXBMI), SD = sd(BMXBMI), Median = median(BMXBMI), IQR = IQR(BMXBMI), Minimum = min(BMXBMI), Maximum = max(BMXBMI))
+
+# summary stats on bmi grouped by ethnicity
+
+merged_data |>
+  ggplot(aes(x = RIDRETH3, y = BMXBMI, fill = RIDRETH3)) +
+  geom_boxplot(alpha = 0.7) +
+  scale_x_discrete(labels = c(
+    "Other Hispanic" = "Hispanic",
+    "Non-Hispanic White" = "White",
+    "Non-Hispanic Black" = "Black",
+    "Non-Hispanic Asian" = "Asian",
+    "Other Race - Including Multi-Racial" = "Other (including multiple)" ))+
+  labs(title = "BMI by Ethnicity", x = "Ethnicity", y = "Body Mass Index (kg/m^2)") +
+  theme_minimal() 
+
+  
+
+# ANOVA to determine is Tukey HSD is needed
+anova_C <- aov(BMXBMI ~ RIDRETH3, data = merged_data)
+summary(anova_C)
+
+# Tukey HSD to determine difference between mean BMI compared by ethnicity
+TukeyHSD(anova_C, conf.level = 0.90)
+
+```
+## Conclusion
+
+Based on the results of the Tukey HSD test, population mean BMI does differ among adults across ethnic groups. The strongest pattern was that Asian participants had a much lower mean BMI than both Mexican American and Black Adults. Additionally, Black adults had a higher mean BMI than both White and Hispanic adults. This supports my hypothesis that population mean BMI differs between ethnicities. 
+
+# Analysis D
+
+## Is visiting a mental health professional in the last year associated with an overnight hospital visit in the past year?
+
+Based on the assumption that people who seek mental health treatment are unhealthy and unhealthy people go to the hospital more than healthy people, I believe there will be an association between people visiting a mental health professional and having an overnight hospital stay both within the past year.
+
+## Variables Explained
+
+Both HUQ071, have you had an overnight hospital visit in the last year, and HUQ090, have you seen a mental health professional in the last year, are binary variables. By building a 2 x 2 table, we can assess both risk difference and relative risk associated and determine the association of the two observed variables.
+
+## Analysis
+
+The risk table shows that there is a relative risk of 2.02, meaning adults who saw a mental health professional in the last year were over twice as likely to have been hospitalized overnight within the same time frame, and an odds ratio of 2.27, meaning that those who had been hospitalized within the past year were also twice as likely to have seen a mental health professional in the past year. The risk difference is around 0.098, meaning the risk of overnight hospitalization for adults who saw a mental health professional was 9.8% higher than those who did not. Additionally, the risk associated with seeing a mental health professional was much higher than the risk associated with being hospitalized, 19.3% versus 6.9%
+
+```{r 6.3-main-analysis}
+# building table
+
+risk_table <- table(
+  MentalHealthProfessional = merged_data$HUQ090,
+  OvernightHospital = merged_data$HUQ071
+)
+
+
+# assigning each cell in table variable to calculate risk diff, relative risk, and odds ratio
+a <- risk_table["Yes", "Yes"]
+b <- risk_table["Yes", "No"]
+c <- risk_table["No", "Yes"]
+d <- risk_table["No", "No"]
+
+risk_yes <- a / (a + b)
+risk_no  <- c / (c + d)
+
+risk_difference <- risk_yes - risk_no
+relative_risk   <- risk_yes / risk_no
+odds_ratio      <- (a * d) / (b * c)
+
+
+risk_yes
+risk_no
+risk_difference
+relative_risk
+odds_ratio
+risk_table
+
+
+# bar graph of Overnight Hospital Stay by Mental Health Professional Visit
+ggplot(merged_data, aes(x = HUQ090, fill = HUQ071)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = c("No" = "orangered", "Yes" = "royalblue")) +
+  labs(
+    title = "Overnight Hospital Stay by Mental Health Professional Visit",
+    x = "Seen mental health professional in past year",
+    y = "Proportion",
+    fill = "Overnight hospital stay in past year"
+  ) +
+  theme_minimal()
+
+```
+
+## Conclusions
+
+The results indicate a strong positive association between overnight hospital visits and seeing a mental health professional within the last year. Adults who saw a mental heath professional had a much higher risk of being hospitalized than adults who did not. The hypothesis that there would be an association between visiting a mental health professional and having an overnight hospital stay both within the past year was correct based on the risk analyses.
+
+# Analysis E
+
+## Is self-reported overall health associated with having a rountine place for healthcare?
+
+Based on the assumption that healthy people remain healthy because they see a healthcare professional, I believe that there will be an association between people reporting higher health and having a routine place for healthcare. 
+
+## Variables Explained
+
+HUQ010 is a self-reported overall health rating that includes Excellent, Very good, Good, Fair, or Poor. HUQ030 asks if the participant has a routine place to go for healthcare with possible responses yes and no. The first variable is categorical and the second is binary, meaning a 2 by 5 J x K table can be used to determine association between the two. 
+
+## Analysis
+
+This analysis examined the association between self-reported overall health and whether respondents had a routine place to go for healthcare. The associated chi-square test indicated evidence of an association between the two variables with a p value of 0.0004484. 
+```{r 7.2-main-analysis}
+
+# bar graph of Routine Place for Healthcare by Overall Health Rating
+
+ggplot(merged_data, aes(x = HUQ030, fill = HUQ010)) +
+  geom_bar(position = "fill") +
+  scale_fill_discrete(labels = c(
+    "Excellent," = "Excellent",
+    "Very good," = "Very Good",
+    "Good," = "Good",
+    "Fair, or" = "Fair",
+    "Poor?" = "Poor")) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_x_discrete(label = c("There is no place" = "No")) +
+  labs(
+    title = "Routine Place for Healthcare by Overall Health Rating",
+    x = "Routine Place for Healthcare",
+    y = "Proportion",
+    fill = "Overall Health Rating"
+  ) +
+  theme_minimal()
+
+jk_table <- table(merged_data$HUQ030, merged_data$HUQ010)
+
+jk_table
+chisq.test(jk_table)
+chisq.test(jk_table)$expected
+```
+
+## Conclusions
+
+The results provide evidence that self-reported overall health is associated with whether adult participants have a routine place to go for healthcare. The relationship is not incredibly strong, but the distribution of health ratings differs enough across the two groups to reject independence.
+
+# Session Info
+
+```{r}
+sessionInfo()
+```

@@ -1,19 +1,5 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "About Me",
-    "section": "",
-    "text": "About Me\n\nMy name is Charlie Jacobs and I am a junior at Case Western Reserve University pursuing a B.S. in Biochemistry with a concentration in Computational Health Sciences, interested in both computational and wet-lab roles in pharmaceutical research and development. I am currently completing graduate-level coursework in preparation for applying to the Combined Master’s in Biotechnology program with a concentration in Pharmacology, with an interest in interdisciplinary translational research spanning computational biology, molecular biology, and drug development."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "Resume & Contact Info",
-    "section": "",
-    "text": "Contact Information\n\nEmail: charlesjjacobs1205@gmail.com\nLinkedIn"
-  },
-  {
     "objectID": "projects.html",
     "href": "projects.html",
     "title": "Projects",
@@ -33,5 +19,159 @@
     "title": "Projects",
     "section": "Quantifying Semantic Similarity of Reactome Terms",
     "text": "Quantifying Semantic Similarity of Reactome Terms\nBiological pathways often share related functions despite differing in their specific components, making it challenging to quantify functional relationships using individual pathway annotations alone. LevelUp is an R package that calculates semantic similarity of Reactome pathway terms, leveraging the hierarchical structure of pathway annotations to quantify functional relationships between biological processes. The resulting framework is intended to support functional pathway analysis by providing a systematic approach for identifying and characterizing relationships among related biological pathways.\nWhile the project is still in an early stage, I plan on comparing information-content based equations, graph-based equations, and a combined clustering approach with LLM-generated scoring to see which approach yields the most biologically coherent scoring."
+  },
+  {
+    "objectID": "dashboard.html",
+    "href": "dashboard.html",
+    "title": "Dashboard Creation",
+    "section": "",
+    "text": "This dashboard was created by modifying the labor delivery template and data and figures created during the analysis. Some of the graphs were modified slightly when they were copied from the analysis into the dashboard to ensure that all the information fit on the page properly. The following sections follow the format outlined in the Study 1 requirements and examine the relationships between general health, BMI, and ethnicity in a sample American adults ages 21 to 79 from NHANES data."
+  },
+  {
+    "objectID": "dashboard.html#codebook",
+    "href": "dashboard.html#codebook",
+    "title": "Dashboard Creation",
+    "section": "3.1 Codebook",
+    "text": "3.1 Codebook\n\n\n\n\n\n\n\n\nVariable Name\nType\nDescription\n\n\n\n\nSEQN\nID\nStudy respondent identifier\n\n\nBMXBMI\nQuant\nBody-mass index (kg/m^2)\n\n\nHUQ071\nBinary\nOvernight hospital stay in last year?\n\n\nRIDRETH3\n6-Cat\nEthnicity of respondents\n\n\nHUQ090\nBinary\nSeen a mental health professional in last year?\n\n\nHUQ010\n5-Cat\nHow is your health overall?\n\n\nHUQ030\n3-Cat\nDo you have a routine place to go for healthcare?"
+  },
+  {
+    "objectID": "dashboard.html#analytic-tibble",
+    "href": "dashboard.html#analytic-tibble",
+    "title": "Dashboard Creation",
+    "section": "3.2 Analytic Tibble",
+    "text": "3.2 Analytic Tibble\n\nmerged_data |&gt; \n  select(SEQN, BMXBMI, HUQ010, HUQ090, HUQ071, HUQ030, RIDRETH3)\n\n# A tibble: 6,665 × 7\n     SEQN BMXBMI HUQ010     HUQ090 HUQ071 HUQ030            RIDRETH3            \n    &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;             &lt;fct&gt;               \n 1 109266   37.8 Good,      No     No     Yes               Non-Hispanic Asian  \n 2 109273   21.9 Good,      No     No     Yes               Non-Hispanic White  \n 3 109274   30.2 Good,      No     No     Yes               Other Race - Includ…\n 4 109282   26.6 Fair, or   No     No     Yes               Non-Hispanic White  \n 5 109286   28.9 Very good, No     No     Yes               Non-Hispanic Asian  \n 6 109290   28.1 Good,      No     No     Yes               Non-Hispanic Black  \n 7 109292   30.5 Very good, No     No     Yes               Other Hispanic      \n 8 109293   30.1 Good,      Yes    No     There is no place Non-Hispanic White  \n 9 109295   24.9 Good,      No     No     Yes               Mexican American    \n10 109298   34.2 Fair, or   No     No     Yes               Non-Hispanic White  \n# ℹ 6,655 more rows"
+  },
+  {
+    "objectID": "dashboard.html#data-summary",
+    "href": "dashboard.html#data-summary",
+    "title": "Dashboard Creation",
+    "section": "3.3 Data Summary",
+    "text": "3.3 Data Summary\n\nmerged_data |&gt;\n  select(BMXBMI, HUQ010, HUQ090, HUQ071, HUQ030, RIDRETH3) |&gt;\n  tbl_summary()\n\n\n\n\n\n\n\n\n\n\n\nCharacteristic\nN = 6,6651\n\n\n\n\nBMXBMI\n29 (25, 34)\n\n\nHUQ010\n\n\n\n\n    Excellent,\n747 (11%)\n\n\n    Very good,\n1,823 (27%)\n\n\n    Good,\n2,497 (37%)\n\n\n    Fair, or\n1,354 (20%)\n\n\n    Poor?\n244 (3.7%)\n\n\nHUQ090\n714 (11%)\n\n\nHUQ071\n706 (11%)\n\n\nHUQ030\n\n\n\n\n    Yes\n5,547 (83%)\n\n\n    There is no place\n1,118 (17%)\n\n\nRIDRETH3\n\n\n\n\n    Mexican American\n766 (11%)\n\n\n    Other Hispanic\n674 (10%)\n\n\n    Non-Hispanic White\n2,254 (34%)\n\n\n    Non-Hispanic Black\n1,803 (27%)\n\n\n    Non-Hispanic Asian\n836 (13%)\n\n\n    Other Race - Including Multi-Racial\n332 (5.0%)\n\n\n\n1 Median (Q1, Q3); n (%)"
+  },
+  {
+    "objectID": "dashboard.html#do-adults-with-an-overnight-hospital-stay-in-the-last-year-have-a-different-mean-bmi-than-those-without-one",
+    "href": "dashboard.html#do-adults-with-an-overnight-hospital-stay-in-the-last-year-have-a-different-mean-bmi-than-those-without-one",
+    "title": "Dashboard Creation",
+    "section": "4.1 Do adults with an overnight hospital stay in the last year have a different mean BMI than those without one?",
+    "text": "4.1 Do adults with an overnight hospital stay in the last year have a different mean BMI than those without one?\nI expect that adults with an overnight hospital stay in the last year will have a different BMI than those who did not because body-mass index is a reliable indicator for general health, and less healthier people seek medical treatment more often."
+  },
+  {
+    "objectID": "dashboard.html#variables-examined",
+    "href": "dashboard.html#variables-examined",
+    "title": "Dashboard Creation",
+    "section": "4.2 Variables Examined",
+    "text": "4.2 Variables Examined\nBMXBMI is the variable used to observe BMI. Body-mass index is a simple calculation done to see if people are healthy based on their height and weight. This is the quantitative outcome in this analysis. HUQ071 is the variable used to determine if a survey participant has had an overnight hospital stay in the last year. This is a binary variable with categories Yes and No."
+  },
+  {
+    "objectID": "dashboard.html#analysis",
+    "href": "dashboard.html#analysis",
+    "title": "Dashboard Creation",
+    "section": "4.3 Analysis",
+    "text": "4.3 Analysis\nFor this analysis there are two independent groups, those who have had an overnight hospital stay in the past year and those who have not. The quantitative outcome is BMI, and the two groups are independent because each participant has only one BMI and belongs to one binary hospitalization group. Because there were several hundred responses in the Yes category and several thousand in the No, a Welch two-sample t test was used to estimate the differences in mean BMI between the two groups. The violin plot was slightly skewed right, but that should not affect the t test given that both groups were sufficiently large and the mean and median of the groups are relatively close (30.7 median Yes; 28.8 median No; 31.7 mean Yes; 30.1 mean No). The t test with a 90% confidence interval was 1.06 to 2.17 (Yes-No) and the p value was far below 0.05, meaning there is evidence that adults who have had an overnight hospital stay in the past year have a higher BMI on average than adults who have not had an overnight hospital stay\n\n# violin plot of overnight hospital stay and bmi\nmerged_data %&gt;%\n  ggplot(aes(x = HUQ071, y = BMXBMI, fill = HUQ071)) +\n  geom_violin(alpha = 0.5, trim = FALSE) +\n  geom_boxplot(width = 0.15, alpha = 0.8) +\n  scale_fill_manual(values = c(\"No\" = \"orangered\", \"Yes\" = \"royalblue\")) +\n  labs(title = \"Distribution of BMI by Overnight Hospital Stay Status\", x = \"Overnight hospital stay in past year\", y = \"Body Mass Index (kg/m^2)\") +\n  theme_minimal() +\n  theme(legend.position = \"none\") \n\n\n\n\n\n\n\n# summary stats on bmi grouped by overnight hospital stay\nmerged_data %&gt;%\n  group_by(HUQ071) %&gt;%\n  summarise(\n    n = n(), Mean = mean(BMXBMI), SD = sd(BMXBMI), Median = median(BMXBMI), IQR = IQR(BMXBMI), Minimum = min(BMXBMI), Maximum = max(BMXBMI)) \n\n# A tibble: 2 × 8\n  HUQ071     n  Mean    SD Median   IQR Minimum Maximum\n  &lt;fct&gt;  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n1 Yes      706  31.7  8.54   30.7  10.9    15      84.4\n2 No      5959  30.1  7.59   28.8   8.8    14.6    92.3\n\n# 2 sample t test to determine difference in population means\nt.test(BMXBMI ~ HUQ071, data = merged_data, conf.level = 0.90)\n\n\n    Welch Two Sample t-test\n\ndata:  BMXBMI by HUQ071\nt = 4.802, df = 842.4, p-value = 1.858e-06\nalternative hypothesis: true difference in means between group Yes and group No is not equal to 0\n90 percent confidence interval:\n 1.060764 2.167902\nsample estimates:\nmean in group Yes  mean in group No \n         31.71997          30.10564"
+  },
+  {
+    "objectID": "dashboard.html#conclusions",
+    "href": "dashboard.html#conclusions",
+    "title": "Dashboard Creation",
+    "section": "4.4 Conclusions",
+    "text": "4.4 Conclusions\nAdults who reported an overnight hospital stay in the last year had a higher average BMI than adults who did not. The estimated mean difference in BMI was 1.61 kg/m^2, with a 90% confidence interval from 1.06 to 2.17 kg/m^2. Since this interval excludes 0, the results provide evidence of a difference in population mean BMI between the two groups, which is consistent with my hypothesis."
+  },
+  {
+    "objectID": "dashboard.html#does-mean-bmi-differ-across-ethnic-groups",
+    "href": "dashboard.html#does-mean-bmi-differ-across-ethnic-groups",
+    "title": "Dashboard Creation",
+    "section": "5.1 Does mean BMI differ across ethnic groups?",
+    "text": "5.1 Does mean BMI differ across ethnic groups?\nI expect that there will be a significant difference between the average BMI of each ethnic group because of the physiological differences associated with each group."
+  },
+  {
+    "objectID": "dashboard.html#variables-examined-1",
+    "href": "dashboard.html#variables-examined-1",
+    "title": "Dashboard Creation",
+    "section": "5.2 Variables Examined",
+    "text": "5.2 Variables Examined\nOnce again, BMXBMI is the quantitative variable used to observe body-mass index measured in kg/m^2. RIDRETH3 is the categorical variable for ethnicity that has six possible values: Non-Hispanic Asian, Non-Hispanic White, Non-Hispanic Black, Mexican American, Hispanic, and Other Race - Including Multi-Racial. The quantitative outcome is BMI and each of the ethnicities are the independent categories."
+  },
+  {
+    "objectID": "dashboard.html#analysis-1",
+    "href": "dashboard.html#analysis-1",
+    "title": "Dashboard Creation",
+    "section": "5.3 Analysis",
+    "text": "5.3 Analysis\nFor this analysis there are six independent groups, one for each racial category. Because there are several different categories, ANOVA is required to determine if there is a difference in at least one of the population means and Tukey HSD is used afterwards to determine which groups differ and to what degree. Based on the very small P value of the ANOVA, there is a difference in at least one of the population means, so the Tukey HSD is required. At a 90% confidence interval, Asians had a lower average BMI than all other ethnic categories and Black participants had a higher average BMI than both Hispanic and White participants.\nCompared to Mexican American adults, Asians had an estimated mean BMI that was 5.19 kg/m^2 (-6.16 to -4.22 on a 90% CI), and compared to Black adults, Asians had an estimated mean BMI 5.91 kg/m^2 lower (-6.72 to -5.10 on a 90% CI). Black adults had an estimated mean BMI 1.60 kg/m^2 higher than Hispanic adults (0.72 to 2.48 on a 90% CI), and 1.40 kg/m^2 higher than White adults (0.79 to 2.01 on a 90% CI).\n\nmerged_data %&gt;%\n  group_by(RIDRETH3) %&gt;%\n  summarise(n = n(), Mean = mean(BMXBMI), SD = sd(BMXBMI), Median = median(BMXBMI), IQR = IQR(BMXBMI), Minimum = min(BMXBMI), Maximum = max(BMXBMI))\n\n# A tibble: 6 × 8\n  RIDRETH3                            n  Mean    SD Median   IQR Minimum Maximum\n  &lt;fct&gt;                           &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;\n1 Mexican American                  766  31.1  6.50   30.1  8       15.7    67  \n2 Other Hispanic                    674  30.2  6.36   29.1  7.27    15.8    56.6\n3 Non-Hispanic White               2254  30.4  7.74   29    9.5     14.8    80.6\n4 Non-Hispanic Black               1803  31.8  8.89   30.6 10.6     15      92.3\n5 Non-Hispanic Asian                836  25.9  4.77   25.2  5.8     14.6    60.6\n6 Other Race - Including Multi-R…   332  30.8  7.76   30.2  9.55    17.4    68.2\n\n# summary stats on bmi grouped by ethnicity\n\nmerged_data |&gt;\n  ggplot(aes(x = RIDRETH3, y = BMXBMI, fill = RIDRETH3)) +\n  geom_boxplot(alpha = 0.7) +\n  scale_x_discrete(labels = c(\n    \"Other Hispanic\" = \"Hispanic\",\n    \"Non-Hispanic White\" = \"White\",\n    \"Non-Hispanic Black\" = \"Black\",\n    \"Non-Hispanic Asian\" = \"Asian\",\n    \"Other Race - Including Multi-Racial\" = \"Other (including multiple)\" ))+\n  labs(title = \"BMI by Ethnicity\", x = \"Ethnicity\", y = \"Body Mass Index (kg/m^2)\") +\n  theme_minimal() \n\n\n\n\n\n\n\n# ANOVA to determine is Tukey HSD is needed\nanova_C &lt;- aov(BMXBMI ~ RIDRETH3, data = merged_data)\nsummary(anova_C)\n\n              Df Sum Sq Mean Sq F value Pr(&gt;F)    \nRIDRETH3       5  20850    4170   73.87 &lt;2e-16 ***\nResiduals   6659 375909      56                   \n---\nSignif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1\n\n# Tukey HSD to determine difference between mean BMI compared by ethnicity\nTukeyHSD(anova_C, conf.level = 0.90)\n\n  Tukey multiple comparisons of means\n    90% family-wise confidence level\n\nFit: aov(formula = BMXBMI ~ RIDRETH3, data = merged_data)\n\n$RIDRETH3\n                                                             diff        lwr\nOther Hispanic-Mexican American                        -0.8656604 -1.8930245\nNon-Hispanic White-Mexican American                    -0.6859362 -1.4995150\nNon-Hispanic Black-Mexican American                     0.7240000 -0.1149909\nNon-Hispanic Asian-Mexican American                    -5.1793003 -6.1522742\nOther Race - Including Multi-Racial-Mexican American   -0.2291288 -1.5073476\nNon-Hispanic White-Other Hispanic                       0.1797241 -0.6742920\nNon-Hispanic Black-Other Hispanic                       1.5896604  0.7114013\nNon-Hispanic Asian-Other Hispanic                      -4.3136399 -5.3206710\nOther Race - Including Multi-Racial-Other Hispanic      0.6365316 -0.6677984\nNon-Hispanic Black-Non-Hispanic White                   1.4099363  0.7953043\nNon-Hispanic Asian-Non-Hispanic White                  -4.4933641 -5.2811108\nOther Race - Including Multi-Racial-Non-Hispanic White  0.4568074 -0.6867441\nNon-Hispanic Asian-Non-Hispanic Black                  -5.9033003 -6.7172661\nOther Race - Including Multi-Racial-Non-Hispanic Black -0.9531288 -2.1148971\nOther Race - Including Multi-Racial-Non-Hispanic Asian  4.9501715  3.6882373\n                                                              upr     p adj\nOther Hispanic-Mexican American                         0.1617037 0.2464268\nNon-Hispanic White-Mexican American                     0.1276425 0.2458015\nNon-Hispanic Black-Mexican American                     1.5629910 0.2221125\nNon-Hispanic Asian-Mexican American                    -4.2063264 0.0000000\nOther Race - Including Multi-Racial-Mexican American    1.0490901 0.9973211\nNon-Hispanic White-Other Hispanic                       1.0337403 0.9942858\nNon-Hispanic Black-Other Hispanic                       2.4679195 0.0000417\nNon-Hispanic Asian-Other Hispanic                      -3.3066089 0.0000000\nOther Race - Including Multi-Racial-Other Hispanic      1.9408615 0.8049080\nNon-Hispanic Black-Non-Hispanic White                   2.0245682 0.0000000\nNon-Hispanic Asian-Non-Hispanic White                  -3.7056173 0.0000000\nOther Race - Including Multi-Racial-Non-Hispanic White  1.6003590 0.9064789\nNon-Hispanic Asian-Non-Hispanic Black                  -5.0893345 0.0000000\nOther Race - Including Multi-Racial-Non-Hispanic Black  0.2086394 0.2747953\nOther Race - Including Multi-Racial-Non-Hispanic Asian  6.2121057 0.0000000"
+  },
+  {
+    "objectID": "dashboard.html#conclusion",
+    "href": "dashboard.html#conclusion",
+    "title": "Dashboard Creation",
+    "section": "5.4 Conclusion",
+    "text": "5.4 Conclusion\nBased on the results of the Tukey HSD test, population mean BMI does differ among adults across ethnic groups. The strongest pattern was that Asian participants had a much lower mean BMI than both Mexican American and Black Adults. Additionally, Black adults had a higher mean BMI than both White and Hispanic adults. This supports my hypothesis that population mean BMI differs between ethnicities."
+  },
+  {
+    "objectID": "dashboard.html#is-visiting-a-mental-health-professional-in-the-last-year-associated-with-an-overnight-hospital-visit-in-the-past-year",
+    "href": "dashboard.html#is-visiting-a-mental-health-professional-in-the-last-year-associated-with-an-overnight-hospital-visit-in-the-past-year",
+    "title": "Dashboard Creation",
+    "section": "6.1 Is visiting a mental health professional in the last year associated with an overnight hospital visit in the past year?",
+    "text": "6.1 Is visiting a mental health professional in the last year associated with an overnight hospital visit in the past year?\nBased on the assumption that people who seek mental health treatment are unhealthy and unhealthy people go to the hospital more than healthy people, I believe there will be an association between people visiting a mental health professional and having an overnight hospital stay both within the past year."
+  },
+  {
+    "objectID": "dashboard.html#variables-explained",
+    "href": "dashboard.html#variables-explained",
+    "title": "Dashboard Creation",
+    "section": "6.2 Variables Explained",
+    "text": "6.2 Variables Explained\nBoth HUQ071, have you had an overnight hospital visit in the last year, and HUQ090, have you seen a mental health professional in the last year, are binary variables. By building a 2 x 2 table, we can assess both risk difference and relative risk associated and determine the association of the two observed variables."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "Resume & Contact Info",
+    "section": "",
+    "text": "Contact Information\n\nEmail: charlesjjacobs1205@gmail.com\nLinkedIn"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "About Me",
+    "section": "",
+    "text": "About Me\n\nMy name is Charlie Jacobs and I am a junior at Case Western Reserve University pursuing a B.S. in Biochemistry with a concentration in Computational Health Sciences, interested in both computational and wet-lab roles in pharmaceutical research and development. I am currently completing graduate-level coursework in preparation for applying to the Combined Master’s in Biotechnology program with a concentration in Pharmacology, with an interest in interdisciplinary translational research spanning computational biology, molecular biology, and drug development."
+  },
+  {
+    "objectID": "dashboard.html#analysis-2",
+    "href": "dashboard.html#analysis-2",
+    "title": "Dashboard Creation",
+    "section": "6.3 Analysis",
+    "text": "6.3 Analysis\nThe risk table shows that there is a relative risk of 2.02, meaning adults who saw a mental health professional in the last year were over twice as likely to have been hospitalized overnight within the same time frame, and an odds ratio of 2.27, meaning that those who had been hospitalized within the past year were also twice as likely to have seen a mental health professional in the past year. The risk difference is around 0.098, meaning the risk of overnight hospitalization for adults who saw a mental health professional was 9.8% higher than those who did not. Additionally, the risk associated with seeing a mental health professional was much higher than the risk associated with being hospitalized, 19.3% versus 6.9%\n\n# building table\n\nrisk_table &lt;- table(\n  MentalHealthProfessional = merged_data$HUQ090,\n  OvernightHospital = merged_data$HUQ071\n)\n\n\n# assigning each cell in table variable to calculate risk diff, relative risk, and odds ratio\na &lt;- risk_table[\"Yes\", \"Yes\"]\nb &lt;- risk_table[\"Yes\", \"No\"]\nc &lt;- risk_table[\"No\", \"Yes\"]\nd &lt;- risk_table[\"No\", \"No\"]\n\nrisk_yes &lt;- a / (a + b)\nrisk_no  &lt;- c / (c + d)\n\nrisk_difference &lt;- risk_yes - risk_no\nrelative_risk   &lt;- risk_yes / risk_no\nodds_ratio      &lt;- (a * d) / (b * c)\n\n\nrisk_yes\n\n[1] 0.1918768\n\nrisk_no\n\n[1] 0.09561418\n\nrisk_difference\n\n[1] 0.09626257\n\nrelative_risk\n\n[1] 2.006781\n\nodds_ratio\n\n[1] 2.245826\n\nrisk_table\n\n                        OvernightHospital\nMentalHealthProfessional  Yes   No\n                     Yes  137  577\n                     No   569 5382\n\n# bar graph of Overnight Hospital Stay by Mental Health Professional Visit\nggplot(merged_data, aes(x = HUQ090, fill = HUQ071)) +\n  geom_bar(position = \"fill\") +\n  scale_fill_manual(values = c(\"No\" = \"orangered\", \"Yes\" = \"royalblue\")) +\n  labs(\n    title = \"Overnight Hospital Stay by Mental Health Professional Visit\",\n    x = \"Seen mental health professional in past year\",\n    y = \"Proportion\",\n    fill = \"Overnight hospital stay in past year\"\n  ) +\n  theme_minimal()"
+  },
+  {
+    "objectID": "dashboard.html#conclusions-1",
+    "href": "dashboard.html#conclusions-1",
+    "title": "Dashboard Creation",
+    "section": "6.4 Conclusions",
+    "text": "6.4 Conclusions\nThe results indicate a strong positive association between overnight hospital visits and seeing a mental health professional within the last year. Adults who saw a mental heath professional had a much higher risk of being hospitalized than adults who did not. The hypothesis that there would be an association between visiting a mental health professional and having an overnight hospital stay both within the past year was correct based on the risk analyses."
+  },
+  {
+    "objectID": "dashboard.html#is-self-reported-overall-health-associated-with-having-a-rountine-place-for-healthcare",
+    "href": "dashboard.html#is-self-reported-overall-health-associated-with-having-a-rountine-place-for-healthcare",
+    "title": "Dashboard Creation",
+    "section": "7.1 Is self-reported overall health associated with having a rountine place for healthcare?",
+    "text": "7.1 Is self-reported overall health associated with having a rountine place for healthcare?\nBased on the assumption that healthy people remain healthy because they see a healthcare professional, I believe that there will be an association between people reporting higher health and having a routine place for healthcare."
+  },
+  {
+    "objectID": "dashboard.html#variables-explained-1",
+    "href": "dashboard.html#variables-explained-1",
+    "title": "Dashboard Creation",
+    "section": "7.2 Variables Explained",
+    "text": "7.2 Variables Explained\nHUQ010 is a self-reported overall health rating that includes Excellent, Very good, Good, Fair, or Poor. HUQ030 asks if the participant has a routine place to go for healthcare with possible responses yes and no. The first variable is categorical and the second is binary, meaning a 2 by 5 J x K table can be used to determine association between the two."
+  },
+  {
+    "objectID": "dashboard.html#analysis-3",
+    "href": "dashboard.html#analysis-3",
+    "title": "Dashboard Creation",
+    "section": "7.3 Analysis",
+    "text": "7.3 Analysis\nThis analysis examined the association between self-reported overall health and whether respondents had a routine place to go for healthcare. The associated chi-square test indicated evidence of an association between the two variables with a p value of 0.0004484.\n\n# bar graph of Routine Place for Healthcare by Overall Health Rating\n\nggplot(merged_data, aes(x = HUQ030, fill = HUQ010)) +\n  geom_bar(position = \"fill\") +\n  scale_fill_discrete(labels = c(\n    \"Excellent,\" = \"Excellent\",\n    \"Very good,\" = \"Very Good\",\n    \"Good,\" = \"Good\",\n    \"Fair, or\" = \"Fair\",\n    \"Poor?\" = \"Poor\")) +\n  scale_y_continuous(labels = scales::percent_format()) +\n  scale_x_discrete(label = c(\"There is no place\" = \"No\")) +\n  labs(\n    title = \"Routine Place for Healthcare by Overall Health Rating\",\n    x = \"Routine Place for Healthcare\",\n    y = \"Proportion\",\n    fill = \"Overall Health Rating\"\n  ) +\n  theme_minimal()\n\n\n\n\n\n\n\njk_table &lt;- table(merged_data$HUQ030, merged_data$HUQ010)\n\njk_table\n\n                   \n                    Excellent, Very good, Good, Fair, or Poor?\n  Yes                      586       1514  2087     1142   218\n  There is no place        161        309   410      212    26\n\nchisq.test(jk_table)\n\n\n    Pearson's Chi-squared test\n\ndata:  jk_table\nX-squared = 20.237, df = 4, p-value = 0.0004484\n\nchisq.test(jk_table)$expected\n\n                   \n                    Excellent, Very good,     Good,  Fair, or     Poor?\n  Yes                 621.6968  1517.2065 2078.1484 1126.8774 203.07097\n  There is no place   125.3032   305.7935  418.8516  227.1226  40.92903"
+  },
+  {
+    "objectID": "dashboard.html#conclusions-2",
+    "href": "dashboard.html#conclusions-2",
+    "title": "Dashboard Creation",
+    "section": "7.4 Conclusions",
+    "text": "7.4 Conclusions\nThe results provide evidence that self-reported overall health is associated with whether adult participants have a routine place to go for healthcare. The relationship is not incredibly strong, but the distribution of health ratings differs enough across the two groups to reject independence."
   }
 ]

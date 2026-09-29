@@ -1,0 +1,654 @@
+---
+title: "Health & Access to Care Dashboard"
+author: Charles Jacobs
+format: 
+  dashboard:
+    nav-buttons: [github]
+    github: https://github.com/mine-cetinkaya-rundel/ld-dashboard
+theme: lumen
+fig-width: 10
+fig-asp: 0.3
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r}
+#| label: load-packages
+#| message: false
+
+library(tidyverse)
+library(Hmisc)
+library(gtsummary)
+library(nhanesA)
+library(scales)
+library(DT)
+library(gt)
+library(broom)
+theme_set(theme_minimal(base_size = 24, base_family = "sans"))
+```
+
+```{r}
+#| label: load-data
+#| message: false
+
+hospital_raw <- readRDS("data/P_HUQ.rds")
+body_raw <- readRDS("data/P_BMX.rds")
+demo_raw <- readRDS("data/P_DEMO.rds")
+```
+
+```{r}
+#| label: prep-data
+body_cleaned <- body_raw %>%
+  select(SEQN, BMXBMI)
+
+demo_cleaned <- demo_raw %>%
+  select(SEQN, RIDAGEYR, RIAGENDR, RIDRETH3, DMDEDUC2, INDFMPIR, RIDSTATR)
+
+hospital_cleaned <- hospital_raw %>%
+  select(SEQN, HUQ010, HUQ090, HUQ071, HUQ030)
+
+
+merged_data <- demo_cleaned %>%
+  left_join(body_cleaned, by = "SEQN") %>%
+  left_join(hospital_cleaned, by = "SEQN") %>%
+  filter(RIDSTATR == "Both interviewed and MEC examined") %>%
+  filter(between(RIDAGEYR, 21, 79)) %>%
+  filter(complete.cases(.)) %>%
+  filter(HUQ071 != "Don't know") %>%
+  filter(!HUQ010 %in% c("Don't know", "Refused")) %>%
+  filter(!HUQ030 %in% c("Don't know", "Refused")) %>%
+  mutate(
+    HUQ030 = fct_recode(HUQ030, "Yes" = "There is more than one place"),
+    HUQ030 = fct_relevel(HUQ030, "Yes", "No"),
+    HUQ071 = fct_relevel(HUQ071, "No", "Yes"),
+    HUQ090 = fct_relevel(HUQ090, "No", "Yes")
+  ) %>%
+  droplevels()
+```
+
+#  {.sidebar}
+
+This dashboard displays statistics for:
+
+|                 |                                     |
+|-----------------|-------------------------------------|
+| **Dataset**     | NHANES 2017-March 2020 Pre-pandemic |
+| **Population**  | Adults ages 21 to 79                |
+| **Sample size** | `{r} nrow(merged_data)`             |
+
+------------------------------------------------------------------------
+
+Variables featured in this dashboard:
+
+|                           |            |
+|---------------------------|------------|
+| **BMI**                   | `BMXBMI`   |
+| **Hospital stay**         | `HUQ071`   |
+| **Overall health**        | `HUQ010`   |
+| **Routine care location** | `HUQ030`   |
+| **Ethnicity**             | `RIDRETH3` |
+| **Mental health visit**   | `HUQ090`   |
+
+------------------------------------------------------------------------
+
+::: {.callout-note collapse="true"}
+## Disclaimer
+
+This dashboard summarizes cleaned NHANES data restricted to adults ages 21 to 79 with complete data on selected variables.
+:::
+
+# All
+
+```{r}
+#| label: all-values
+#| results: hide
+
+n_adults <- nrow(merged_data)
+
+mean_bmi <- mean(merged_data$BMXBMI, na.rm = TRUE)
+
+p_hosp_yes <- merged_data %>%
+  count(HUQ071) %>%
+  mutate(p = n / sum(n)) %>%
+  filter(HUQ071 == "Yes") %>%
+  pull(p)
+
+p_mh_yes <- merged_data %>%
+  count(HUQ090) %>%
+  mutate(p = n / sum(n)) %>%
+  filter(HUQ090 == "Yes") %>%
+  pull(p)
+```
+
+## Row {height="20%"}
+
+```{r}
+#| content: valuebox
+#| title: "Total adults"
+
+list(
+  icon = "people-fill",
+  color = "primary",
+  value = n_adults
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Mean BMI"
+
+list(
+  icon = "activity",
+  color = "warning",
+  value = round(mean_bmi, 1)
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Overnight Hospital stay in past year"
+
+list(
+  icon = "hospital",
+  color = "danger",
+  value = label_percent(accuracy = 0.1)(p_hosp_yes)
+)
+```
+
+```{r}
+#| content: valuebox
+#| title: "Saw mental health professional in past year"
+
+list(
+  icon = "person-heart",
+  color = "success",
+  value = label_percent(accuracy = 0.1)(p_mh_yes)
+)
+
+```
+
+## Row {height="40%"}
+
+### Column {width="40%"}
+
+```{r}
+#| title: Overall health
+
+merged_data %>%
+  count(HUQ010) %>%
+  mutate(p = n / sum(n)) %>%
+  gt() %>%
+  fmt_percent(
+    columns = p,
+    decimals = 1
+  ) %>%
+  cols_label(
+    HUQ010 = "Overall health",
+    n = "Count",
+    p = "Proportion"
+  )
+```
+
+### Column {width="60%"}
+
+```{r}
+#| title: BMI by overnight hospital stay
+
+merged_data %>%
+  ggplot(aes(x = HUQ071, y = BMXBMI, fill = HUQ071)) +
+  geom_violin(alpha = 0.5) +
+  geom_boxplot(width = 0.15, alpha = 0.8) +
+  scale_fill_manual(values = c("No" = "orangered", "Yes" = "royalblue")) +
+  labs(
+    x = "Overnight hospital stay in past year",
+    y = "Body Mass Index (kg/m^2)")
+   
+
+```
+
+## Row {height="40%"}
+
+```{r}
+#| title: Overnight hospital stay by mental health professional visit
+
+ggplot(merged_data, aes(x = HUQ090, fill = HUQ071)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = c("No" = "orangered", "Yes" = "royalblue")) +
+  scale_y_continuous(labels = label_percent()) +
+  labs(
+    x = "Seen mental health professional in past year",
+    y = "Proportion",
+    fill = "Overnight hospital stay"
+  )
+```
+
+```{r}
+#| title: Routine place for healthcare by overall health
+
+ggplot(merged_data, aes(x = HUQ030, fill = HUQ010)) +
+  geom_bar(position = "fill") +
+  scale_fill_discrete(labels = c(
+    "Excellent," = "Excellent",
+    "Very good," = "Very Good",
+    "Good," = "Good",
+    "Fair, or" = "Fair",
+    "Poor?" = "Poor"
+  )) +
+  scale_y_continuous(labels = scales::percent_format()) +
+  scale_x_discrete(labels = c(
+    "There is no place" = "No",
+    "Yes" = "Yes"
+  )) +
+  labs(
+    title = "Routine Place for Healthcare by Overall Health Rating",
+    x = "Routine Place for Healthcare",
+    y = "Proportion",
+    fill = "Overall Health Rating"
+  ) +
+  theme_minimal()
+```
+
+# BMI and Hospital Stay {orientation="columns"}
+
+## Column {width="60%"}
+
+```{r}
+#| label: bmi-hosp-values
+#| results: hide
+
+hosp_yes <- merged_data %>% filter(HUQ071 == "Yes")
+hosp_no  <- merged_data %>% filter(HUQ071 == "No")
+
+mean_bmi_yes <- mean(hosp_yes$BMXBMI, na.rm = TRUE)
+mean_bmi_no  <- mean(hosp_no$BMXBMI, na.rm = TRUE)
+
+ttest_b <- t.test(BMXBMI ~ HUQ071, data = merged_data, conf.level = 0.90)
+```
+
+### Row {height="20%"}
+
+```{r}
+#| component: valuebox
+#| title: "Mean BMI: Hospital stay = Yes"
+
+list(
+  icon = "clipboard2-pulse",
+  color = "primary",
+  value = round(mean_bmi_yes, 1)
+)
+```
+
+```{r}
+#| component: valuebox
+#| title: "Mean BMI: Hospital stay = No"
+
+list(
+  icon = "clipboard2-pulse",
+  color = "light",
+  value = round(mean_bmi_no, 1)
+)
+```
+
+### Row {height="40%"}
+
+```{r}
+#| component: valuebox
+#| title: "Mean difference"
+
+list(
+  icon = "plus-slash-minus",
+  color = "warning",
+  value = round(unname(diff(rev(ttest_b$estimate))), 2)
+)
+```
+
+### Row {.tabset height="40%"}
+
+```{r}
+#| title: BMI summary by overnight hospital stay
+
+merged_data %>%
+  group_by(HUQ071) %>%
+  summarise(
+    n = n(),
+    Mean = mean(BMXBMI),
+    SD = sd(BMXBMI),
+    Median = median(BMXBMI),
+    IQR = IQR(BMXBMI),
+    Minimum = min(BMXBMI),
+    Maximum = max(BMXBMI)
+  ) %>%
+  gt()
+```
+
+```{r}
+#| title: BMI distribution
+
+merged_data %>%
+  ggplot(aes(x = HUQ071, y = BMXBMI, fill = HUQ071)) +
+  geom_violin(alpha = 0.5, trim = FALSE) +
+  geom_boxplot(width = 0.15, alpha = 0.8) +
+  scale_fill_manual(values = c("No" = "orangered", "Yes" = "royalblue")) +
+  labs(
+    x = "Overnight hospital stay",
+    y = "BMI",
+    fill = NULL
+  ) 
+
+```
+
+```{r}
+#| title: t test results
+
+tibble(
+  estimate_yes = unname(ttest_b$estimate[1]),
+  estimate_no = unname(ttest_b$estimate[2]),
+  difference = unname(diff(rev(ttest_b$estimate))),
+  conf_low = ttest_b$conf.int[1],
+  conf_high = ttest_b$conf.int[2],
+  p_value = ttest_b$p.value
+) %>%
+  gt()
+```
+
+## Column {width="40%"}
+
+```{r}
+#| title: Data
+
+merged_data %>%
+  select(SEQN, BMXBMI, HUQ071) %>%
+  arrange(SEQN) %>%
+  datatable(
+    colnames = c("ID", "BMI", "Overnight hospital stay"),
+    options = list(
+      dom = "lrtip",
+      paging = TRUE,
+      lengthMenu = c(5, 10, 25),
+      pageLength = 10,
+      scrollY = TRUE
+    )
+  )
+```
+
+# Ethnicity and BMI {orientation="columns"}
+
+## Column {width="60%"}
+
+```{r}
+#| label: ethnicity-values
+#| results: hide
+
+anova_C <- aov(BMXBMI ~ RIDRETH3, data = merged_data)
+anova_p <- summary(anova_C)[[1]][["Pr(>F)"]][1]
+```
+
+### Row {height="20%"}
+
+```{r}
+#| component: valuebox
+#| title: "Ethnic groups"
+
+list(
+  icon = "people",
+  color = "primary",
+  value = n_distinct(merged_data$RIDRETH3)
+)
+```
+
+```{r}
+#| component: valuebox
+#| title: "Overall mean BMI"
+
+list(
+  icon = "activity",
+  color = "warning",
+  value = round(mean(merged_data$BMXBMI), 1)
+)
+```
+
+```{r}
+#| component: valuebox
+#| title: "ANOVA p-value"
+
+list(
+  icon = "bar-chart-line",
+  color = "danger",
+  value = signif(anova_p, 3)
+)
+```
+
+### Row {height="40%"}
+
+```{r}
+#| title: BMI by ethnicity
+
+merged_data %>%
+  ggplot(aes(x = RIDRETH3, y = BMXBMI, fill = RIDRETH3)) +
+  geom_boxplot(alpha = 0.7) +
+  scale_x_discrete(labels = c(
+    "Other Hispanic" = "Hispanic",
+    "Non-Hispanic White" = "White",
+    "Non-Hispanic Black" = "Black",
+    "Non-Hispanic Asian" = "Asian",
+    "Other Race - Including Multi-Racial" = "Other"
+  )) +
+  labs(
+    x = "Ethnicity",
+    y = "BMI",
+    fill = NULL
+  ) +
+  theme(axis.text.x = element_text(angle = 20, hjust = 1),
+        legend.position = "none")
+```
+
+### Row {.tabset height="40%"}
+
+```{r}
+#| title: Maternal age and parity
+
+merged_data %>%
+  group_by(RIDRETH3) %>%
+  summarise(
+    n = n(),
+    Mean = mean(BMXBMI),
+    SD = sd(BMXBMI),
+    Median = median(BMXBMI),
+    IQR = IQR(BMXBMI),
+    Minimum = min(BMXBMI),
+    Maximum = max(BMXBMI)
+  ) %>%
+  gt()
+```
+
+```{r}
+#| title: Tukey HSD
+
+broom::tidy(TukeyHSD(anova_C, conf.level = 0.90)$RIDRETH3) %>%
+  gt()
+```
+
+## Column {width="40%"}
+
+```{r}
+#| title: Data
+
+merged_data %>%
+  select(SEQN, BMXBMI, RIDRETH3) %>%
+  arrange(SEQN) %>%
+  datatable(
+    colnames = c("ID", "BMI", "Ethnicity"),
+    options = list(
+      dom = "lrtip",
+      paging = TRUE,
+      lengthMenu = c(5, 10, 25),
+      pageLength = 10,
+      scrollY = TRUE
+    )
+  )
+```
+
+# Associations 
+
+## Column {width="60%"}
+```{r}
+#| label: assoc-values
+#| results: hide
+
+risk_table <- table(
+  MentalHealthProfessional = merged_data$HUQ090,
+  OvernightHospital = merged_data$HUQ071
+)
+
+a <- risk_table["Yes", "Yes"]
+b <- risk_table["Yes", "No"]
+c <- risk_table["No", "Yes"]
+d <- risk_table["No", "No"]
+
+risk_yes <- a / (a + b)
+risk_no  <- c / (c + d)
+
+risk_difference <- risk_yes - risk_no
+relative_risk   <- risk_yes / risk_no
+odds_ratio      <- (a * d) / (b * c)
+
+jk_table <- table(merged_data$HUQ030, merged_data$HUQ010)
+chisq_e <- chisq.test(jk_table)
+```
+
+
+### Row {height="20%"}
+
+```{r}
+#| component: valuebox
+#| title: "Relative risk"
+
+list(
+  icon = "arrow-left-right",
+  color = "primary",
+  value = round(relative_risk, 2)
+)
+
+```
+
+```{r}
+#| component: valuebox
+#| title: "Odds ratio"
+
+list(
+  icon = "percent",
+  color = "warning",
+  value = round(odds_ratio, 2)
+)
+```
+
+
+```{r}
+#| component: valuebox
+#| title: "Chi-square p-value"
+
+list(
+  icon = "grid-3x3-gap",
+  color = "danger",
+  value = signif(chisq_e$p.value, 3)
+)
+```
+
+### Row {height="40%"}
+
+```{r}
+#| title: Hospital stay by mental health visit
+
+ggplot(merged_data, aes(x = HUQ090, fill = HUQ071)) +
+  geom_bar(position = "fill") +
+  scale_fill_manual(values = c("No" = "orangered", "Yes" = "royalblue")) +
+  scale_y_continuous(labels = label_percent()) +
+  labs(
+    x = "Seen mental health professional",
+    y = "Proportion",
+    fill = "Overnight hospital\nstay"
+  )
+```
+
+### Row {.tabset height="40%"}
+```{r}
+#| title: Risk estimates
+
+tibble(
+  risk_mh_yes = risk_yes,
+  risk_mh_no = risk_no,
+  risk_difference = risk_difference,
+  relative_risk = relative_risk,
+  odds_ratio = odds_ratio
+) %>%
+  gt()
+```
+
+```{r}
+#| title: Routine care and overall health
+
+ggplot(merged_data, aes(x = HUQ030, fill = HUQ010)) +
+  geom_bar(position = "fill") +
+  scale_y_continuous(labels = label_percent()) +
+  labs(
+    x = "Routine place for healthcare",
+    y = "Proportion",
+    fill = "Overall health"
+  )
+```
+
+```{r}
+#| title: Chi-square test
+
+tibble(
+  statistic = unname(chisq_e$statistic),
+  df = unname(chisq_e$parameter),
+  p_value = chisq_e$p.value
+) %>%
+  gt()
+```
+
+## Column {width="40%"}
+
+```{r}
+#| title: Data
+
+merged_data %>%
+  select(SEQN, HUQ090, HUQ071, HUQ030, HUQ010) %>%
+  arrange(SEQN) %>%
+  datatable(
+    colnames = c(
+      "ID",
+      "Mental health professional",
+      "Overnight hospital stay",
+      "Routine healthcare place",
+      "Overall health"
+    ),
+    options = list(
+      dom = "lrtip",
+      paging = TRUE,
+      lengthMenu = c(5, 10, 25),
+      pageLength = 10,
+      scrollY = TRUE
+    )
+  )
+```
+
+Data
+```{r}
+merged_data %>%
+  select(SEQN, BMXBMI, HUQ010, HUQ090, HUQ071, HUQ030, RIDRETH3) %>%
+  arrange(SEQN) %>%
+  datatable(
+    colnames = c(
+      "ID",
+      "BMI",
+      "Overall health",
+      "Mental health professional",
+      "Overnight hospital stay",
+      "Routine place for healthcare",
+      "Ethnicity"
+    ),
+    options = list(dom = "ftp", paging = TRUE)
+  )
+```

@@ -1,0 +1,1793 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.25">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Charles Jacobs">
+<meta name="dcterms.date" content="2026-09-28">
+
+<title>Dashboard Creation – Charlie Jacobs</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-051849a2a1e0f68eed7367b8dc269a5d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Charlie Jacobs</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">About me</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./about.html"> 
+<span class="menu-text">Resume &amp; Contact Info</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./projects.html"> 
+<span class="menu-text">Projects</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./temp.html"> 
+<span class="menu-text">Dashboard</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./dashboard.html" aria-current="page"> 
+<span class="menu-text">Dashboard Creation</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#data-import" id="toc-data-import" class="nav-link active" data-scroll-target="#data-import"><span class="header-section-number">1</span> Data Import</a></li>
+  <li><a href="#data-cleaning" id="toc-data-cleaning" class="nav-link" data-scroll-target="#data-cleaning"><span class="header-section-number">2</span> Data Cleaning</a></li>
+  <li><a href="#codebook-data-description" id="toc-codebook-data-description" class="nav-link" data-scroll-target="#codebook-data-description"><span class="header-section-number">3</span> Codebook &amp; Data Description</a>
+  <ul class="collapse">
+  <li><a href="#codebook" id="toc-codebook" class="nav-link" data-scroll-target="#codebook"><span class="header-section-number">3.1</span> Codebook</a></li>
+  <li><a href="#analytic-tibble" id="toc-analytic-tibble" class="nav-link" data-scroll-target="#analytic-tibble"><span class="header-section-number">3.2</span> Analytic Tibble</a></li>
+  <li><a href="#data-summary" id="toc-data-summary" class="nav-link" data-scroll-target="#data-summary"><span class="header-section-number">3.3</span> Data Summary</a></li>
+  </ul></li>
+  <li><a href="#analysis-b" id="toc-analysis-b" class="nav-link" data-scroll-target="#analysis-b"><span class="header-section-number">4</span> Analysis B</a>
+  <ul class="collapse">
+  <li><a href="#do-adults-with-an-overnight-hospital-stay-in-the-last-year-have-a-different-mean-bmi-than-those-without-one" id="toc-do-adults-with-an-overnight-hospital-stay-in-the-last-year-have-a-different-mean-bmi-than-those-without-one" class="nav-link" data-scroll-target="#do-adults-with-an-overnight-hospital-stay-in-the-last-year-have-a-different-mean-bmi-than-those-without-one"><span class="header-section-number">4.1</span> Do adults with an overnight hospital stay in the last year have a different mean BMI than those without one?</a></li>
+  <li><a href="#variables-examined" id="toc-variables-examined" class="nav-link" data-scroll-target="#variables-examined"><span class="header-section-number">4.2</span> Variables Examined</a></li>
+  <li><a href="#analysis" id="toc-analysis" class="nav-link" data-scroll-target="#analysis"><span class="header-section-number">4.3</span> Analysis</a></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions"><span class="header-section-number">4.4</span> Conclusions</a></li>
+  </ul></li>
+  <li><a href="#analysis-c" id="toc-analysis-c" class="nav-link" data-scroll-target="#analysis-c"><span class="header-section-number">5</span> Analysis C</a>
+  <ul class="collapse">
+  <li><a href="#does-mean-bmi-differ-across-ethnic-groups" id="toc-does-mean-bmi-differ-across-ethnic-groups" class="nav-link" data-scroll-target="#does-mean-bmi-differ-across-ethnic-groups"><span class="header-section-number">5.1</span> Does mean BMI differ across ethnic groups?</a></li>
+  <li><a href="#variables-examined-1" id="toc-variables-examined-1" class="nav-link" data-scroll-target="#variables-examined-1"><span class="header-section-number">5.2</span> Variables Examined</a></li>
+  <li><a href="#analysis-1" id="toc-analysis-1" class="nav-link" data-scroll-target="#analysis-1"><span class="header-section-number">5.3</span> Analysis</a></li>
+  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion"><span class="header-section-number">5.4</span> Conclusion</a></li>
+  </ul></li>
+  <li><a href="#analysis-d" id="toc-analysis-d" class="nav-link" data-scroll-target="#analysis-d"><span class="header-section-number">6</span> Analysis D</a>
+  <ul class="collapse">
+  <li><a href="#is-visiting-a-mental-health-professional-in-the-last-year-associated-with-an-overnight-hospital-visit-in-the-past-year" id="toc-is-visiting-a-mental-health-professional-in-the-last-year-associated-with-an-overnight-hospital-visit-in-the-past-year" class="nav-link" data-scroll-target="#is-visiting-a-mental-health-professional-in-the-last-year-associated-with-an-overnight-hospital-visit-in-the-past-year"><span class="header-section-number">6.1</span> Is visiting a mental health professional in the last year associated with an overnight hospital visit in the past year?</a></li>
+  <li><a href="#variables-explained" id="toc-variables-explained" class="nav-link" data-scroll-target="#variables-explained"><span class="header-section-number">6.2</span> Variables Explained</a></li>
+  <li><a href="#analysis-2" id="toc-analysis-2" class="nav-link" data-scroll-target="#analysis-2"><span class="header-section-number">6.3</span> Analysis</a></li>
+  <li><a href="#conclusions-1" id="toc-conclusions-1" class="nav-link" data-scroll-target="#conclusions-1"><span class="header-section-number">6.4</span> Conclusions</a></li>
+  </ul></li>
+  <li><a href="#analysis-e" id="toc-analysis-e" class="nav-link" data-scroll-target="#analysis-e"><span class="header-section-number">7</span> Analysis E</a>
+  <ul class="collapse">
+  <li><a href="#is-self-reported-overall-health-associated-with-having-a-rountine-place-for-healthcare" id="toc-is-self-reported-overall-health-associated-with-having-a-rountine-place-for-healthcare" class="nav-link" data-scroll-target="#is-self-reported-overall-health-associated-with-having-a-rountine-place-for-healthcare"><span class="header-section-number">7.1</span> Is self-reported overall health associated with having a rountine place for healthcare?</a></li>
+  <li><a href="#variables-explained-1" id="toc-variables-explained-1" class="nav-link" data-scroll-target="#variables-explained-1"><span class="header-section-number">7.2</span> Variables Explained</a></li>
+  <li><a href="#analysis-3" id="toc-analysis-3" class="nav-link" data-scroll-target="#analysis-3"><span class="header-section-number">7.3</span> Analysis</a></li>
+  <li><a href="#conclusions-2" id="toc-conclusions-2" class="nav-link" data-scroll-target="#conclusions-2"><span class="header-section-number">7.4</span> Conclusions</a></li>
+  </ul></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">8</span> Session Info</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Dashboard Creation</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Charles Jacobs </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">September 28, 2026</p>
+    </div>
+  </div>
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>This dashboard was created by modifying the labor delivery template and data and figures created during the analysis. Some of the graphs were modified slightly when they were copied from the analysis into the dashboard to ensure that all the information fit on the page properly. The following sections follow the format outlined in the Study 1 requirements and examine the relationships between general health, BMI, and ethnicity in a sample American adults ages 21 to 79 from NHANES data.</p>
+<section id="data-import" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Data Import</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">comment =</span> <span class="cn">NA</span>)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Hmisc)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'Hmisc' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Attaching package: 'Hmisc'</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>The following objects are masked from 'package:base':
+
+    format.pval, units</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gtsummary)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'gtsummary' was built under R version 4.5.3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(nhanesA)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'nhanesA' was built under R version 4.5.3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># import datasets</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co"># hospital_raw &lt;- nhanes('P_HUQ') |&gt; tibble()</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co"># body_raw &lt;- nhanes('P_BMX') |&gt; tibble()</span></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co"># demo_raw &lt;- nhanes('P_DEMO') |&gt; tibble()</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co"># save datasets </span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co"># saveRDS(body_raw, "data/P_BMX.rds")</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co"># saveRDS(hospital_raw, "data/P_HUQ.Rds")</span></span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co"># saveRDS(demo_raw, "data/P_DEMO.rds")</span></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co"># load saved datasets</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>hospital_raw <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/P_HUQ.rds"</span>)</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>body_raw <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/P_BMX.rds"</span>)</span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>demo_raw <span class="ot">&lt;-</span> <span class="fu">readRDS</span>(<span class="st">"data/P_DEMO.rds"</span>)</span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyverse' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'ggplot2' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tibble' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'tidyr' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'readr' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'purrr' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'dplyr' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'forcats' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Warning: package 'lubridate' was built under R version 4.5.3</code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.2.0     ✔ readr     2.2.0
+✔ forcats   1.0.1     ✔ stringr   1.6.0
+✔ ggplot2   4.0.3     ✔ tibble    3.3.1
+✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+✔ purrr     1.2.1     </code></pre>
+</div>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter()    masks stats::filter()
+✖ dplyr::lag()       masks stats::lag()
+✖ dplyr::src()       masks Hmisc::src()
+✖ dplyr::summarize() masks Hmisc::summarize()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+</div>
+</section>
+<section id="data-cleaning" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Data Cleaning</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>body_cleaned <span class="ot">&lt;-</span> body_raw <span class="sc">%&gt;%</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SEQN, BMXBMI)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>demo_cleaned <span class="ot">&lt;-</span> demo_raw <span class="sc">%&gt;%</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SEQN, RIDAGEYR, RIAGENDR, RIDRETH3, DMDEDUC2, INDFMPIR, RIDSTATR)</span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>hospital_cleaned <span class="ot">&lt;-</span> hospital_raw <span class="sc">%&gt;%</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SEQN, HUQ010, HUQ090, HUQ071, HUQ030)</span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># merged all imported data sets</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co"># filtered ages to only include 21-79 to ensure count was below 7k maximum</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co"># filtered for complete cases, removed Don't know and refused for 3 variables</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># reassinged more than one to yes for one variable</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a>merged_data <span class="ot">&lt;-</span> demo_cleaned <span class="sc">%&gt;%</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(body_cleaned, <span class="at">by =</span> <span class="st">"SEQN"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(hospital_cleaned, <span class="at">by =</span> <span class="st">"SEQN"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(RIDSTATR <span class="sc">==</span> <span class="st">"Both interviewed and MEC examined"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">between</span>(RIDAGEYR, <span class="dv">21</span>, <span class="dv">79</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="fu">complete.cases</span>(.)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(HUQ071 <span class="sc">!=</span> <span class="st">"Don't know"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>HUQ010 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Don't know"</span>, <span class="st">"Refused"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-23"><a href="#cb21-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span>HUQ030 <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"Don't know"</span>, <span class="st">"Refused"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-24"><a href="#cb21-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">HUQ030 =</span> <span class="fu">fct_recode</span>(HUQ030, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"There is more than one place"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb21-25"><a href="#cb21-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">droplevels</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="codebook-data-description" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Codebook &amp; Data Description</h1>
+<p>6665 adults ages 21 to 79 participating in NHANES 2017 to March 2020 pre-pandemic with complete data on the variables listed below.</p>
+<section id="codebook" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="codebook"><span class="header-section-number">3.1</span> Codebook</h2>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 10%">
+<col style="width: 68%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Variable Name</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>SEQN</td>
+<td>ID</td>
+<td>Study respondent identifier</td>
+</tr>
+<tr class="even">
+<td>BMXBMI</td>
+<td>Quant</td>
+<td>Body-mass index (kg/m^2)</td>
+</tr>
+<tr class="odd">
+<td>HUQ071</td>
+<td>Binary</td>
+<td>Overnight hospital stay in last year?</td>
+</tr>
+<tr class="even">
+<td>RIDRETH3</td>
+<td>6-Cat</td>
+<td>Ethnicity of respondents</td>
+</tr>
+<tr class="odd">
+<td>HUQ090</td>
+<td>Binary</td>
+<td>Seen a mental health professional in last year?</td>
+</tr>
+<tr class="even">
+<td>HUQ010</td>
+<td>5-Cat</td>
+<td>How is your health overall?</td>
+</tr>
+<tr class="odd">
+<td>HUQ030</td>
+<td>3-Cat</td>
+<td>Do you have a routine place to go for healthcare?</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="analytic-tibble" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="analytic-tibble"><span class="header-section-number">3.2</span> Analytic Tibble</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb22"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">|&gt;</span> </span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(SEQN, BMXBMI, HUQ010, HUQ090, HUQ071, HUQ030, RIDRETH3)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6,665 × 7
+     SEQN BMXBMI HUQ010     HUQ090 HUQ071 HUQ030            RIDRETH3            
+    &lt;dbl&gt;  &lt;dbl&gt; &lt;fct&gt;      &lt;fct&gt;  &lt;fct&gt;  &lt;fct&gt;             &lt;fct&gt;               
+ 1 109266   37.8 Good,      No     No     Yes               Non-Hispanic Asian  
+ 2 109273   21.9 Good,      No     No     Yes               Non-Hispanic White  
+ 3 109274   30.2 Good,      No     No     Yes               Other Race - Includ…
+ 4 109282   26.6 Fair, or   No     No     Yes               Non-Hispanic White  
+ 5 109286   28.9 Very good, No     No     Yes               Non-Hispanic Asian  
+ 6 109290   28.1 Good,      No     No     Yes               Non-Hispanic Black  
+ 7 109292   30.5 Very good, No     No     Yes               Other Hispanic      
+ 8 109293   30.1 Good,      Yes    No     There is no place Non-Hispanic White  
+ 9 109295   24.9 Good,      No     No     Yes               Mexican American    
+10 109298   34.2 Fair, or   No     No     Yes               Non-Hispanic White  
+# ℹ 6,655 more rows</code></pre>
+</div>
+</div>
+</section>
+<section id="data-summary" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="data-summary"><span class="header-section-number">3.3</span> Data Summary</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">|&gt;</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(BMXBMI, HUQ010, HUQ090, HUQ071, HUQ030, RIDRETH3) <span class="sc">|&gt;</span></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tbl_summary</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div id="kghxbuuntz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#kghxbuuntz table {
+  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+#kghxbuuntz thead, #kghxbuuntz tbody, #kghxbuuntz tfoot, #kghxbuuntz tr, #kghxbuuntz td, #kghxbuuntz th {
+  border-style: none;
+}
+
+#kghxbuuntz p {
+  margin: 0;
+  padding: 0;
+}
+
+#kghxbuuntz .gt_table {
+  display: table;
+  border-collapse: collapse;
+  line-height: normal;
+  margin-left: auto;
+  margin-right: auto;
+  color: #333333;
+  font-size: 16px;
+  font-weight: normal;
+  font-style: normal;
+  background-color: #FFFFFF;
+  width: auto;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #A8A8A8;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #A8A8A8;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+}
+
+#kghxbuuntz .gt_caption {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
+#kghxbuuntz .gt_title {
+  color: #333333;
+  font-size: 125%;
+  font-weight: initial;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-color: #FFFFFF;
+  border-bottom-width: 0;
+}
+
+#kghxbuuntz .gt_subtitle {
+  color: #333333;
+  font-size: 85%;
+  font-weight: initial;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-color: #FFFFFF;
+  border-top-width: 0;
+}
+
+#kghxbuuntz .gt_heading {
+  background-color: #FFFFFF;
+  text-align: center;
+  border-bottom-color: #FFFFFF;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kghxbuuntz .gt_bottom_border {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kghxbuuntz .gt_col_headings {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+}
+
+#kghxbuuntz .gt_col_heading {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 6px;
+  padding-left: 5px;
+  padding-right: 5px;
+  overflow-x: hidden;
+}
+
+#kghxbuuntz .gt_column_spanner_outer {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: normal;
+  text-transform: inherit;
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 4px;
+  padding-right: 4px;
+}
+
+#kghxbuuntz .gt_column_spanner_outer:first-child {
+  padding-left: 0;
+}
+
+#kghxbuuntz .gt_column_spanner_outer:last-child {
+  padding-right: 0;
+}
+
+#kghxbuuntz .gt_column_spanner {
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: bottom;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  overflow-x: hidden;
+  display: inline-block;
+  width: 100%;
+}
+
+#kghxbuuntz .gt_spanner_row {
+  border-bottom-style: hidden;
+}
+
+#kghxbuuntz .gt_group_heading {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  text-align: left;
+}
+
+#kghxbuuntz .gt_empty_group_heading {
+  padding: 0.5px;
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  vertical-align: middle;
+}
+
+#kghxbuuntz .gt_from_md > :first-child {
+  margin-top: 0;
+}
+
+#kghxbuuntz .gt_from_md > :last-child {
+  margin-bottom: 0;
+}
+
+#kghxbuuntz .gt_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin: 10px;
+  border-top-style: solid;
+  border-top-width: 1px;
+  border-top-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 1px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 1px;
+  border-right-color: #D3D3D3;
+  vertical-align: middle;
+  overflow-x: hidden;
+}
+
+#kghxbuuntz .gt_stub {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kghxbuuntz .gt_stub_row_group {
+  color: #333333;
+  background-color: #FFFFFF;
+  font-size: 100%;
+  font-weight: initial;
+  text-transform: inherit;
+  border-right-style: solid;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+  padding-left: 5px;
+  padding-right: 5px;
+  vertical-align: top;
+}
+
+#kghxbuuntz .gt_row_group_first td {
+  border-top-width: 2px;
+}
+
+#kghxbuuntz .gt_row_group_first th {
+  border-top-width: 2px;
+}
+
+#kghxbuuntz .gt_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kghxbuuntz .gt_first_summary_row {
+  border-top-style: solid;
+  border-top-color: #D3D3D3;
+}
+
+#kghxbuuntz .gt_first_summary_row.thick {
+  border-top-width: 2px;
+}
+
+#kghxbuuntz .gt_last_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kghxbuuntz .gt_grand_summary_row {
+  color: #333333;
+  background-color: #FFFFFF;
+  text-transform: inherit;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kghxbuuntz .gt_first_grand_summary_row {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-top-style: double;
+  border-top-width: 6px;
+  border-top-color: #D3D3D3;
+}
+
+#kghxbuuntz .gt_last_grand_summary_row_top {
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  padding-right: 5px;
+  border-bottom-style: double;
+  border-bottom-width: 6px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kghxbuuntz .gt_striped {
+  background-color: rgba(128, 128, 128, 0.05);
+}
+
+#kghxbuuntz .gt_table_body {
+  border-top-style: solid;
+  border-top-width: 2px;
+  border-top-color: #D3D3D3;
+  border-bottom-style: solid;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+}
+
+#kghxbuuntz .gt_footnotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kghxbuuntz .gt_footnote {
+  margin: 0px;
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kghxbuuntz .gt_sourcenotes {
+  color: #333333;
+  background-color: #FFFFFF;
+  border-bottom-style: none;
+  border-bottom-width: 2px;
+  border-bottom-color: #D3D3D3;
+  border-left-style: none;
+  border-left-width: 2px;
+  border-left-color: #D3D3D3;
+  border-right-style: none;
+  border-right-width: 2px;
+  border-right-color: #D3D3D3;
+}
+
+#kghxbuuntz .gt_sourcenote {
+  font-size: 90%;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+#kghxbuuntz .gt_left {
+  text-align: left;
+}
+
+#kghxbuuntz .gt_center {
+  text-align: center;
+}
+
+#kghxbuuntz .gt_right {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+#kghxbuuntz .gt_font_normal {
+  font-weight: normal;
+}
+
+#kghxbuuntz .gt_font_bold {
+  font-weight: bold;
+}
+
+#kghxbuuntz .gt_font_italic {
+  font-style: italic;
+}
+
+#kghxbuuntz .gt_super {
+  font-size: 65%;
+}
+
+#kghxbuuntz .gt_footnote_marks {
+  font-size: 75%;
+  vertical-align: 0.4em;
+  position: initial;
+}
+
+#kghxbuuntz .gt_asterisk {
+  font-size: 100%;
+  vertical-align: 0;
+}
+
+#kghxbuuntz .gt_indent_1 {
+  text-indent: 5px;
+}
+
+#kghxbuuntz .gt_indent_2 {
+  text-indent: 10px;
+}
+
+#kghxbuuntz .gt_indent_3 {
+  text-indent: 15px;
+}
+
+#kghxbuuntz .gt_indent_4 {
+  text-indent: 20px;
+}
+
+#kghxbuuntz .gt_indent_5 {
+  text-indent: 25px;
+}
+
+#kghxbuuntz .katex-display {
+  display: inline-flex !important;
+  margin-bottom: 0.75em !important;
+}
+
+#kghxbuuntz div.Reactable > div.rt-table > div.rt-thead > div.rt-tr.rt-tr-group-header > div.rt-th-group:after {
+  height: 0px !important;
+}
+</style>
+
+<table class="gt_table caption-top table table-sm table-striped small" data-quarto-bootstrap="false">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="gt_col_headings header">
+<th id="label" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><strong>Characteristic</strong></th>
+<th id="stat_0" class="gt_col_heading gt_columns_bottom_border gt_center" data-quarto-table-cell-role="th" scope="col"><strong>N = 6,665</strong><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span></th>
+</tr>
+</thead>
+<tbody class="gt_table_body">
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">BMXBMI</td>
+<td class="gt_row gt_center" headers="stat_0">29 (25, 34)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">HUQ010</td>
+<td class="gt_row gt_center" headers="stat_0"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Excellent,</td>
+<td class="gt_row gt_center" headers="stat_0">747 (11%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Very good,</td>
+<td class="gt_row gt_center" headers="stat_0">1,823 (27%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Good,</td>
+<td class="gt_row gt_center" headers="stat_0">2,497 (37%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Fair, or</td>
+<td class="gt_row gt_center" headers="stat_0">1,354 (20%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Poor?</td>
+<td class="gt_row gt_center" headers="stat_0">244 (3.7%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">HUQ090</td>
+<td class="gt_row gt_center" headers="stat_0">714 (11%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">HUQ071</td>
+<td class="gt_row gt_center" headers="stat_0">706 (11%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">HUQ030</td>
+<td class="gt_row gt_center" headers="stat_0"><br>
+</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Yes</td>
+<td class="gt_row gt_center" headers="stat_0">5,547 (83%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;There is no place</td>
+<td class="gt_row gt_center" headers="stat_0">1,118 (17%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">RIDRETH3</td>
+<td class="gt_row gt_center" headers="stat_0"><br>
+</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Mexican American</td>
+<td class="gt_row gt_center" headers="stat_0">766 (11%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Other Hispanic</td>
+<td class="gt_row gt_center" headers="stat_0">674 (10%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Non-Hispanic White</td>
+<td class="gt_row gt_center" headers="stat_0">2,254 (34%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Non-Hispanic Black</td>
+<td class="gt_row gt_center" headers="stat_0">1,803 (27%)</td>
+</tr>
+<tr class="even">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Non-Hispanic Asian</td>
+<td class="gt_row gt_center" headers="stat_0">836 (13%)</td>
+</tr>
+<tr class="odd">
+<td class="gt_row gt_left" headers="label">&nbsp;&nbsp;&nbsp;&nbsp;Other Race - Including Multi-Racial</td>
+<td class="gt_row gt_center" headers="stat_0">332 (5.0%)</td>
+</tr>
+</tbody><tfoot>
+<tr class="gt_footnotes odd">
+<td colspan="2" class="gt_footnote"><span class="gt_footnote_marks" style="white-space:nowrap;font-style:italic;font-weight:normal;line-height:0;"><sup>1</sup></span> Median (Q1, Q3); n (%)</td>
+</tr>
+</tfoot>
+
+</table>
+
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="analysis-b" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> Analysis B</h1>
+<section id="do-adults-with-an-overnight-hospital-stay-in-the-last-year-have-a-different-mean-bmi-than-those-without-one" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="do-adults-with-an-overnight-hospital-stay-in-the-last-year-have-a-different-mean-bmi-than-those-without-one"><span class="header-section-number">4.1</span> Do adults with an overnight hospital stay in the last year have a different mean BMI than those without one?</h2>
+<p>I expect that adults with an overnight hospital stay in the last year will have a different BMI than those who did not because body-mass index is a reliable indicator for general health, and less healthier people seek medical treatment more often.</p>
+</section>
+<section id="variables-examined" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="variables-examined"><span class="header-section-number">4.2</span> Variables Examined</h2>
+<p>BMXBMI is the variable used to observe BMI. Body-mass index is a simple calculation done to see if people are healthy based on their height and weight. This is the quantitative outcome in this analysis. HUQ071 is the variable used to determine if a survey participant has had an overnight hospital stay in the last year. This is a binary variable with categories Yes and No.</p>
+</section>
+<section id="analysis" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="analysis"><span class="header-section-number">4.3</span> Analysis</h2>
+<p>For this analysis there are two independent groups, those who have had an overnight hospital stay in the past year and those who have not. The quantitative outcome is BMI, and the two groups are independent because each participant has only one BMI and belongs to one binary hospitalization group. Because there were several hundred responses in the Yes category and several thousand in the No, a Welch two-sample t test was used to estimate the differences in mean BMI between the two groups. The violin plot was slightly skewed right, but that should not affect the t test given that both groups were sufficiently large and the mean and median of the groups are relatively close (30.7 median Yes; 28.8 median No; 31.7 mean Yes; 30.1 mean No). The t test with a 90% confidence interval was 1.06 to 2.17 (Yes-No) and the p value was far below 0.05, meaning there is evidence that adults who have had an overnight hospital stay in the past year have a higher BMI on average than adults who have not had an overnight hospital stay</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># violin plot of overnight hospital stay and bmi</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> HUQ071, <span class="at">y =</span> BMXBMI, <span class="at">fill =</span> HUQ071)) <span class="sc">+</span></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_violin</span>(<span class="at">alpha =</span> <span class="fl">0.5</span>, <span class="at">trim =</span> <span class="cn">FALSE</span>) <span class="sc">+</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">width =</span> <span class="fl">0.15</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">+</span></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"orangered"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"royalblue"</span>)) <span class="sc">+</span></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"Distribution of BMI by Overnight Hospital Stay Status"</span>, <span class="at">x =</span> <span class="st">"Overnight hospital stay in past year"</span>, <span class="at">y =</span> <span class="st">"Body Mass Index (kg/m^2)"</span>) <span class="sc">+</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">legend.position =</span> <span class="st">"none"</span>) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dashboard_files/figure-html/4.3-main-analysis-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summary stats on bmi grouped by overnight hospital stay</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(HUQ071) <span class="sc">%&gt;%</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">n =</span> <span class="fu">n</span>(), <span class="at">Mean =</span> <span class="fu">mean</span>(BMXBMI), <span class="at">SD =</span> <span class="fu">sd</span>(BMXBMI), <span class="at">Median =</span> <span class="fu">median</span>(BMXBMI), <span class="at">IQR =</span> <span class="fu">IQR</span>(BMXBMI), <span class="at">Minimum =</span> <span class="fu">min</span>(BMXBMI), <span class="at">Maximum =</span> <span class="fu">max</span>(BMXBMI)) </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 2 × 8
+  HUQ071     n  Mean    SD Median   IQR Minimum Maximum
+  &lt;fct&gt;  &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 Yes      706  31.7  8.54   30.7  10.9    15      84.4
+2 No      5959  30.1  7.59   28.8   8.8    14.6    92.3</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2 sample t test to determine difference in population means</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(BMXBMI <span class="sc">~</span> HUQ071, <span class="at">data =</span> merged_data, <span class="at">conf.level =</span> <span class="fl">0.90</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Welch Two Sample t-test
+
+data:  BMXBMI by HUQ071
+t = 4.802, df = 842.4, p-value = 1.858e-06
+alternative hypothesis: true difference in means between group Yes and group No is not equal to 0
+90 percent confidence interval:
+ 1.060764 2.167902
+sample estimates:
+mean in group Yes  mean in group No 
+         31.71997          30.10564 </code></pre>
+</div>
+</div>
+</section>
+<section id="conclusions" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="conclusions"><span class="header-section-number">4.4</span> Conclusions</h2>
+<p>Adults who reported an overnight hospital stay in the last year had a higher average BMI than adults who did not. The estimated mean difference in BMI was 1.61 kg/m^2, with a 90% confidence interval from 1.06 to 2.17 kg/m^2. Since this interval excludes 0, the results provide evidence of a difference in population mean BMI between the two groups, which is consistent with my hypothesis.</p>
+</section>
+</section>
+<section id="analysis-c" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Analysis C</h1>
+<section id="does-mean-bmi-differ-across-ethnic-groups" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="does-mean-bmi-differ-across-ethnic-groups"><span class="header-section-number">5.1</span> Does mean BMI differ across ethnic groups?</h2>
+<p>I expect that there will be a significant difference between the average BMI of each ethnic group because of the physiological differences associated with each group.</p>
+</section>
+<section id="variables-examined-1" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="variables-examined-1"><span class="header-section-number">5.2</span> Variables Examined</h2>
+<p>Once again, BMXBMI is the quantitative variable used to observe body-mass index measured in kg/m^2. RIDRETH3 is the categorical variable for ethnicity that has six possible values: Non-Hispanic Asian, Non-Hispanic White, Non-Hispanic Black, Mexican American, Hispanic, and Other Race - Including Multi-Racial. The quantitative outcome is BMI and each of the ethnicities are the independent categories.</p>
+</section>
+<section id="analysis-1" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="analysis-1"><span class="header-section-number">5.3</span> Analysis</h2>
+<p>For this analysis there are six independent groups, one for each racial category. Because there are several different categories, ANOVA is required to determine if there is a difference in at least one of the population means and Tukey HSD is used afterwards to determine which groups differ and to what degree. Based on the very small P value of the ANOVA, there is a difference in at least one of the population means, so the Tukey HSD is required. At a 90% confidence interval, Asians had a lower average BMI than all other ethnic categories and Black participants had a higher average BMI than both Hispanic and White participants.</p>
+<p>Compared to Mexican American adults, Asians had an estimated mean BMI that was 5.19 kg/m^2 (-6.16 to -4.22 on a 90% CI), and compared to Black adults, Asians had an estimated mean BMI 5.91 kg/m^2 lower (-6.72 to -5.10 on a 90% CI). Black adults had an estimated mean BMI 1.60 kg/m^2 higher than Hispanic adults (0.72 to 2.48 on a 90% CI), and 1.40 kg/m^2 higher than White adults (0.79 to 2.01 on a 90% CI).</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">%&gt;%</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(RIDRETH3) <span class="sc">%&gt;%</span></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">n =</span> <span class="fu">n</span>(), <span class="at">Mean =</span> <span class="fu">mean</span>(BMXBMI), <span class="at">SD =</span> <span class="fu">sd</span>(BMXBMI), <span class="at">Median =</span> <span class="fu">median</span>(BMXBMI), <span class="at">IQR =</span> <span class="fu">IQR</span>(BMXBMI), <span class="at">Minimum =</span> <span class="fu">min</span>(BMXBMI), <span class="at">Maximum =</span> <span class="fu">max</span>(BMXBMI))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 8
+  RIDRETH3                            n  Mean    SD Median   IQR Minimum Maximum
+  &lt;fct&gt;                           &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;
+1 Mexican American                  766  31.1  6.50   30.1  8       15.7    67  
+2 Other Hispanic                    674  30.2  6.36   29.1  7.27    15.8    56.6
+3 Non-Hispanic White               2254  30.4  7.74   29    9.5     14.8    80.6
+4 Non-Hispanic Black               1803  31.8  8.89   30.6 10.6     15      92.3
+5 Non-Hispanic Asian                836  25.9  4.77   25.2  5.8     14.6    60.6
+6 Other Race - Including Multi-R…   332  30.8  7.76   30.2  9.55    17.4    68.2</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># summary stats on bmi grouped by ethnicity</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>merged_data <span class="sc">|&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> RIDRETH3, <span class="at">y =</span> BMXBMI, <span class="at">fill =</span> RIDRETH3)) <span class="sc">+</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_boxplot</span>(<span class="at">alpha =</span> <span class="fl">0.7</span>) <span class="sc">+</span></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Other Hispanic"</span> <span class="ot">=</span> <span class="st">"Hispanic"</span>,</span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Non-Hispanic White"</span> <span class="ot">=</span> <span class="st">"White"</span>,</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Non-Hispanic Black"</span> <span class="ot">=</span> <span class="st">"Black"</span>,</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Non-Hispanic Asian"</span> <span class="ot">=</span> <span class="st">"Asian"</span>,</span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Other Race - Including Multi-Racial"</span> <span class="ot">=</span> <span class="st">"Other (including multiple)"</span> ))<span class="sc">+</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">"BMI by Ethnicity"</span>, <span class="at">x =</span> <span class="st">"Ethnicity"</span>, <span class="at">y =</span> <span class="st">"Body Mass Index (kg/m^2)"</span>) <span class="sc">+</span></span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>() </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dashboard_files/figure-html/5.3-main-analysis-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ANOVA to determine is Tukey HSD is needed</span></span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>anova_C <span class="ot">&lt;-</span> <span class="fu">aov</span>(BMXBMI <span class="sc">~</span> RIDRETH3, <span class="at">data =</span> merged_data)</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(anova_C)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>              Df Sum Sq Mean Sq F value Pr(&gt;F)    
+RIDRETH3       5  20850    4170   73.87 &lt;2e-16 ***
+Residuals   6659 375909      56                   
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Tukey HSD to determine difference between mean BMI compared by ethnicity</span></span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">TukeyHSD</span>(anova_C, <span class="at">conf.level =</span> <span class="fl">0.90</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>  Tukey multiple comparisons of means
+    90% family-wise confidence level
+
+Fit: aov(formula = BMXBMI ~ RIDRETH3, data = merged_data)
+
+$RIDRETH3
+                                                             diff        lwr
+Other Hispanic-Mexican American                        -0.8656604 -1.8930245
+Non-Hispanic White-Mexican American                    -0.6859362 -1.4995150
+Non-Hispanic Black-Mexican American                     0.7240000 -0.1149909
+Non-Hispanic Asian-Mexican American                    -5.1793003 -6.1522742
+Other Race - Including Multi-Racial-Mexican American   -0.2291288 -1.5073476
+Non-Hispanic White-Other Hispanic                       0.1797241 -0.6742920
+Non-Hispanic Black-Other Hispanic                       1.5896604  0.7114013
+Non-Hispanic Asian-Other Hispanic                      -4.3136399 -5.3206710
+Other Race - Including Multi-Racial-Other Hispanic      0.6365316 -0.6677984
+Non-Hispanic Black-Non-Hispanic White                   1.4099363  0.7953043
+Non-Hispanic Asian-Non-Hispanic White                  -4.4933641 -5.2811108
+Other Race - Including Multi-Racial-Non-Hispanic White  0.4568074 -0.6867441
+Non-Hispanic Asian-Non-Hispanic Black                  -5.9033003 -6.7172661
+Other Race - Including Multi-Racial-Non-Hispanic Black -0.9531288 -2.1148971
+Other Race - Including Multi-Racial-Non-Hispanic Asian  4.9501715  3.6882373
+                                                              upr     p adj
+Other Hispanic-Mexican American                         0.1617037 0.2464268
+Non-Hispanic White-Mexican American                     0.1276425 0.2458015
+Non-Hispanic Black-Mexican American                     1.5629910 0.2221125
+Non-Hispanic Asian-Mexican American                    -4.2063264 0.0000000
+Other Race - Including Multi-Racial-Mexican American    1.0490901 0.9973211
+Non-Hispanic White-Other Hispanic                       1.0337403 0.9942858
+Non-Hispanic Black-Other Hispanic                       2.4679195 0.0000417
+Non-Hispanic Asian-Other Hispanic                      -3.3066089 0.0000000
+Other Race - Including Multi-Racial-Other Hispanic      1.9408615 0.8049080
+Non-Hispanic Black-Non-Hispanic White                   2.0245682 0.0000000
+Non-Hispanic Asian-Non-Hispanic White                  -3.7056173 0.0000000
+Other Race - Including Multi-Racial-Non-Hispanic White  1.6003590 0.9064789
+Non-Hispanic Asian-Non-Hispanic Black                  -5.0893345 0.0000000
+Other Race - Including Multi-Racial-Non-Hispanic Black  0.2086394 0.2747953
+Other Race - Including Multi-Racial-Non-Hispanic Asian  6.2121057 0.0000000</code></pre>
+</div>
+</div>
+</section>
+<section id="conclusion" class="level2" data-number="5.4">
+<h2 data-number="5.4" class="anchored" data-anchor-id="conclusion"><span class="header-section-number">5.4</span> Conclusion</h2>
+<p>Based on the results of the Tukey HSD test, population mean BMI does differ among adults across ethnic groups. The strongest pattern was that Asian participants had a much lower mean BMI than both Mexican American and Black Adults. Additionally, Black adults had a higher mean BMI than both White and Hispanic adults. This supports my hypothesis that population mean BMI differs between ethnicities.</p>
+</section>
+</section>
+<section id="analysis-d" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Analysis D</h1>
+<section id="is-visiting-a-mental-health-professional-in-the-last-year-associated-with-an-overnight-hospital-visit-in-the-past-year" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="is-visiting-a-mental-health-professional-in-the-last-year-associated-with-an-overnight-hospital-visit-in-the-past-year"><span class="header-section-number">6.1</span> Is visiting a mental health professional in the last year associated with an overnight hospital visit in the past year?</h2>
+<p>Based on the assumption that people who seek mental health treatment are unhealthy and unhealthy people go to the hospital more than healthy people, I believe there will be an association between people visiting a mental health professional and having an overnight hospital stay both within the past year.</p>
+</section>
+<section id="variables-explained" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="variables-explained"><span class="header-section-number">6.2</span> Variables Explained</h2>
+<p>Both HUQ071, have you had an overnight hospital visit in the last year, and HUQ090, have you seen a mental health professional in the last year, are binary variables. By building a 2 x 2 table, we can assess both risk difference and relative risk associated and determine the association of the two observed variables.</p>
+</section>
+<section id="analysis-2" class="level2" data-number="6.3">
+<h2 data-number="6.3" class="anchored" data-anchor-id="analysis-2"><span class="header-section-number">6.3</span> Analysis</h2>
+<p>The risk table shows that there is a relative risk of 2.02, meaning adults who saw a mental health professional in the last year were over twice as likely to have been hospitalized overnight within the same time frame, and an odds ratio of 2.27, meaning that those who had been hospitalized within the past year were also twice as likely to have seen a mental health professional in the past year. The risk difference is around 0.098, meaning the risk of overnight hospitalization for adults who saw a mental health professional was 9.8% higher than those who did not. Additionally, the risk associated with seeing a mental health professional was much higher than the risk associated with being hospitalized, 19.3% versus 6.9%</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co"># building table</span></span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>risk_table <span class="ot">&lt;-</span> <span class="fu">table</span>(</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">MentalHealthProfessional =</span> merged_data<span class="sc">$</span>HUQ090,</span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">OvernightHospital =</span> merged_data<span class="sc">$</span>HUQ071</span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="co"># assigning each cell in table variable to calculate risk diff, relative risk, and odds ratio</span></span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>a <span class="ot">&lt;-</span> risk_table[<span class="st">"Yes"</span>, <span class="st">"Yes"</span>]</span>
+<span id="cb37-11"><a href="#cb37-11" aria-hidden="true" tabindex="-1"></a>b <span class="ot">&lt;-</span> risk_table[<span class="st">"Yes"</span>, <span class="st">"No"</span>]</span>
+<span id="cb37-12"><a href="#cb37-12" aria-hidden="true" tabindex="-1"></a>c <span class="ot">&lt;-</span> risk_table[<span class="st">"No"</span>, <span class="st">"Yes"</span>]</span>
+<span id="cb37-13"><a href="#cb37-13" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> risk_table[<span class="st">"No"</span>, <span class="st">"No"</span>]</span>
+<span id="cb37-14"><a href="#cb37-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-15"><a href="#cb37-15" aria-hidden="true" tabindex="-1"></a>risk_yes <span class="ot">&lt;-</span> a <span class="sc">/</span> (a <span class="sc">+</span> b)</span>
+<span id="cb37-16"><a href="#cb37-16" aria-hidden="true" tabindex="-1"></a>risk_no  <span class="ot">&lt;-</span> c <span class="sc">/</span> (c <span class="sc">+</span> d)</span>
+<span id="cb37-17"><a href="#cb37-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-18"><a href="#cb37-18" aria-hidden="true" tabindex="-1"></a>risk_difference <span class="ot">&lt;-</span> risk_yes <span class="sc">-</span> risk_no</span>
+<span id="cb37-19"><a href="#cb37-19" aria-hidden="true" tabindex="-1"></a>relative_risk   <span class="ot">&lt;-</span> risk_yes <span class="sc">/</span> risk_no</span>
+<span id="cb37-20"><a href="#cb37-20" aria-hidden="true" tabindex="-1"></a>odds_ratio      <span class="ot">&lt;-</span> (a <span class="sc">*</span> d) <span class="sc">/</span> (b <span class="sc">*</span> c)</span>
+<span id="cb37-21"><a href="#cb37-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-22"><a href="#cb37-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-23"><a href="#cb37-23" aria-hidden="true" tabindex="-1"></a>risk_yes</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.1918768</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a>risk_no</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.09561418</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a>risk_difference</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 0.09626257</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb43"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>relative_risk</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.006781</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb45"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>odds_ratio</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] 2.245826</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb47"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>risk_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                        OvernightHospital
+MentalHealthProfessional  Yes   No
+                     Yes  137  577
+                     No   569 5382</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bar graph of Overnight Hospital Stay by Mental Health Professional Visit</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(merged_data, <span class="fu">aes</span>(<span class="at">x =</span> HUQ090, <span class="at">fill =</span> HUQ071)) <span class="sc">+</span></span>
+<span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_manual</span>(<span class="at">values =</span> <span class="fu">c</span>(<span class="st">"No"</span> <span class="ot">=</span> <span class="st">"orangered"</span>, <span class="st">"Yes"</span> <span class="ot">=</span> <span class="st">"royalblue"</span>)) <span class="sc">+</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Overnight Hospital Stay by Mental Health Professional Visit"</span>,</span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Seen mental health professional in past year"</span>,</span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Proportion"</span>,</span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Overnight hospital stay in past year"</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dashboard_files/figure-html/6.3-main-analysis-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="conclusions-1" class="level2" data-number="6.4">
+<h2 data-number="6.4" class="anchored" data-anchor-id="conclusions-1"><span class="header-section-number">6.4</span> Conclusions</h2>
+<p>The results indicate a strong positive association between overnight hospital visits and seeing a mental health professional within the last year. Adults who saw a mental heath professional had a much higher risk of being hospitalized than adults who did not. The hypothesis that there would be an association between visiting a mental health professional and having an overnight hospital stay both within the past year was correct based on the risk analyses.</p>
+</section>
+</section>
+<section id="analysis-e" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Analysis E</h1>
+<section id="is-self-reported-overall-health-associated-with-having-a-rountine-place-for-healthcare" class="level2" data-number="7.1">
+<h2 data-number="7.1" class="anchored" data-anchor-id="is-self-reported-overall-health-associated-with-having-a-rountine-place-for-healthcare"><span class="header-section-number">7.1</span> Is self-reported overall health associated with having a rountine place for healthcare?</h2>
+<p>Based on the assumption that healthy people remain healthy because they see a healthcare professional, I believe that there will be an association between people reporting higher health and having a routine place for healthcare.</p>
+</section>
+<section id="variables-explained-1" class="level2" data-number="7.2">
+<h2 data-number="7.2" class="anchored" data-anchor-id="variables-explained-1"><span class="header-section-number">7.2</span> Variables Explained</h2>
+<p>HUQ010 is a self-reported overall health rating that includes Excellent, Very good, Good, Fair, or Poor. HUQ030 asks if the participant has a routine place to go for healthcare with possible responses yes and no. The first variable is categorical and the second is binary, meaning a 2 by 5 J x K table can be used to determine association between the two.</p>
+</section>
+<section id="analysis-3" class="level2" data-number="7.3">
+<h2 data-number="7.3" class="anchored" data-anchor-id="analysis-3"><span class="header-section-number">7.3</span> Analysis</h2>
+<p>This analysis examined the association between self-reported overall health and whether respondents had a routine place to go for healthcare. The associated chi-square test indicated evidence of an association between the two variables with a p value of 0.0004484.</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co"># bar graph of Routine Place for Healthcare by Overall Health Rating</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(merged_data, <span class="fu">aes</span>(<span class="at">x =</span> HUQ030, <span class="at">fill =</span> HUQ010)) <span class="sc">+</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_bar</span>(<span class="at">position =</span> <span class="st">"fill"</span>) <span class="sc">+</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_discrete</span>(<span class="at">labels =</span> <span class="fu">c</span>(</span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Excellent,"</span> <span class="ot">=</span> <span class="st">"Excellent"</span>,</span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Very good,"</span> <span class="ot">=</span> <span class="st">"Very Good"</span>,</span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Good,"</span> <span class="ot">=</span> <span class="st">"Good"</span>,</span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Fair, or"</span> <span class="ot">=</span> <span class="st">"Fair"</span>,</span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>    <span class="st">"Poor?"</span> <span class="ot">=</span> <span class="st">"Poor"</span>)) <span class="sc">+</span></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">labels =</span> scales<span class="sc">::</span><span class="fu">percent_format</span>()) <span class="sc">+</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_discrete</span>(<span class="at">label =</span> <span class="fu">c</span>(<span class="st">"There is no place"</span> <span class="ot">=</span> <span class="st">"No"</span>)) <span class="sc">+</span></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(</span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">title =</span> <span class="st">"Routine Place for Healthcare by Overall Health Rating"</span>,</span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="st">"Routine Place for Healthcare"</span>,</span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> <span class="st">"Proportion"</span>,</span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">fill =</span> <span class="st">"Overall Health Rating"</span></span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">+</span></span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_minimal</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dashboard_files/figure-html/7.2-main-analysis-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>jk_table <span class="ot">&lt;-</span> <span class="fu">table</span>(merged_data<span class="sc">$</span>HUQ030, merged_data<span class="sc">$</span>HUQ010)</span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>jk_table</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   
+                    Excellent, Very good, Good, Fair, or Poor?
+  Yes                      586       1514  2087     1142   218
+  There is no place        161        309   410      212    26</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(jk_table)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>
+    Pearson's Chi-squared test
+
+data:  jk_table
+X-squared = 20.237, df = 4, p-value = 0.0004484</code></pre>
+</div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb55"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(jk_table)<span class="sc">$</span>expected</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                   
+                    Excellent, Very good,     Good,  Fair, or     Poor?
+  Yes                 621.6968  1517.2065 2078.1484 1126.8774 203.07097
+  There is no place   125.3032   305.7935  418.8516  227.1226  40.92903</code></pre>
+</div>
+</div>
+</section>
+<section id="conclusions-2" class="level2" data-number="7.4">
+<h2 data-number="7.4" class="anchored" data-anchor-id="conclusions-2"><span class="header-section-number">7.4</span> Conclusions</h2>
+<p>The results provide evidence that self-reported overall health is associated with whether adult participants have a routine place to go for healthcare. The relationship is not incredibly strong, but the distribution of health ratings differs enough across the two groups to reject independence.</p>
+</section>
+</section>
+<section id="session-info" class="level1" data-number="8">
+<h1 data-number="8"><span class="header-section-number">8</span> Session Info</h1>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb57"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.5.2 (2025-10-31 ucrt)
+Platform: x86_64-w64-mingw32/x64
+Running under: Windows 10 x64 (build 19045)
+
+Matrix products: default
+  LAPACK version 3.12.1
+
+locale:
+[1] LC_COLLATE=English_United States.utf8 
+[2] LC_CTYPE=English_United States.utf8   
+[3] LC_MONETARY=English_United States.utf8
+[4] LC_NUMERIC=C                          
+[5] LC_TIME=English_United States.utf8    
+
+time zone: America/New_York
+tzcode source: internal
+
+attached base packages:
+[1] stats     graphics  grDevices utils     datasets  methods   base     
+
+other attached packages:
+ [1] lubridate_1.9.5 forcats_1.0.1   stringr_1.6.0   dplyr_1.2.0    
+ [5] purrr_1.2.1     readr_2.2.0     tidyr_1.3.2     tibble_3.3.1   
+ [9] ggplot2_4.0.3   tidyverse_2.0.0 nhanesA_1.4.1   gtsummary_2.6.1
+[13] Hmisc_5.3-0    
+
+loaded via a namespace (and not attached):
+ [1] gtable_0.3.6       xfun_0.56          htmlwidgets_1.6.4  tzdb_0.5.0        
+ [5] vctrs_0.7.1        tools_4.5.2        generics_0.1.4     cluster_2.1.8.1   
+ [9] pkgconfig_2.0.3    data.table_1.18.4  checkmate_2.3.4    RColorBrewer_1.1-3
+[13] S7_0.2.1           gt_1.3.0           lifecycle_1.0.5    compiler_4.5.2    
+[17] farver_2.1.2       litedown_0.11      sass_0.4.10        htmltools_0.5.9   
+[21] yaml_2.3.12        htmlTable_2.5.0    Formula_1.2-5      pillar_1.11.1     
+[25] rpart_4.1.24       commonmark_2.0.0   tidyselect_1.2.1   rvest_1.0.5       
+[29] digest_0.6.39      stringi_1.8.7      labeling_0.4.3     fastmap_1.2.0     
+[33] grid_4.5.2         colorspace_2.1-2   cli_3.6.5          magrittr_2.0.4    
+[37] base64enc_0.1-6    cards_0.9.0        utf8_1.2.6         foreign_0.8-90    
+[41] withr_3.0.2        scales_1.4.0       backports_1.5.0    timechange_0.4.0  
+[45] rmarkdown_2.31     httr_1.4.8         otel_0.2.0         nnet_7.3-20       
+[49] gridExtra_2.3      hms_1.1.4          evaluate_1.0.5     knitr_1.51        
+[53] markdown_2.0       rlang_1.2.0        Rcpp_1.1.1-1.1     glue_1.8.0        
+[57] xml2_1.5.2         rstudioapi_0.18.0  jsonlite_2.0.0     R6_2.6.1          
+[61] plyr_1.8.9         fs_2.1.0          </code></pre>
+</div>
+</div>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

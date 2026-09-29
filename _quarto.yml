@@ -12,7 +12,10 @@ website:
         text: Resume & Contact Info
       - href: projects.qmd
         text: Projects
-
+      - href: temp.qmd
+        text: Dashboard
+      - href: dashboard.qmd
+        text: Dashboard Creation
 format:
   html:
     theme:
